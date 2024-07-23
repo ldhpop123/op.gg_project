@@ -14,27 +14,37 @@
             <div class="search_bar">
                 
                 <div class="server_location_box">
-                    <select name="server_location" id="server_location">
-                        <option value="KR">KR</option>
-                        <option value="EUW">EUW</option>
-                        <option value="NA">NA</option>
-                    </select>
+                    <div class="server_location_select">
+                        <div class="select_box">
+                            <p id="server_location">KR</p>
+                            <p class="material-icons" id="expand">expand_less</p>
+                        </div>
+                        <div class="server_location_btnbox hidden">
+                            <p class="server_location_btn">KR</p>
+                            <p class="server_location_btn">EUW</p>
+                            <p class="server_location_btn">NA</p>
+                        </div>
+                    </div>
                 </div>
+                
 
                 <label for="" class="input_label"><input type="text" id="game_name"></label>
 
                 <div id="search_btn">
                     <i class="material-icons" id>search</i>
+                    
                 </div>
             </div>
         </section>
     
         <section class="player_menu">
             <div class="player_info">
-                <img src="https://img2.quasarzone.com/editor/2021/07/05/15eedf8ece1ace241f9470b577b9f207.jpg" alt="" id="player_icon">
+                <div class="player_icon_box">
+                    <img src="https://img2.quasarzone.com/editor/2021/07/05/15eedf8ece1ace241f9470b577b9f207.jpg" alt="" id="player_icon">
+                    <p id="player_level">180</p>
+                </div>
                 <div class="player_box">
-                    <p id="player_name">ldhpop123<span id="player_tag">#KR1</span></p>
-                    <p id="player_level">level 180</p>
+                    <p id="player_name">ldhpop123 <span id="player_tag">#KR1</span></p>
                     <p id="player_location">KR</p>
                     <div id="reload_btn">전적갱신</div>
                 </div> 
@@ -104,6 +114,30 @@
 
     <script>
         riot_API = 'RGAPI-f4a774c7-fc70-4f10-8f92-b3c8915995aa';
+
+        // search_bar
+
+        select_box = document.querySelector('.server_location_select')
+        select_hidden_box = document.querySelector('.server_location_btnbox')
+        server_location = document.querySelector('#server_location')
+        expand = document.querySelector('#expand')
+
+        select_box.addEventListener('click', (e) => {
+            if (select_hidden_box.classList.contains('hidden')) {
+                select_hidden_box.classList.remove('hidden');
+                expand.textContent = 'expand_more'
+            } else {
+                select_hidden_box.classList.add('hidden');
+                expand.textContent = 'expand_less'
+            };
+        });
+
+        select_hidden_box.addEventListener('click', (e) => {
+            server_location.textContent = e.target.textContent
+        })
+
+
+
     </script>
 </body>
 </html>

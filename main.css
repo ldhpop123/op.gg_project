@@ -3,6 +3,10 @@
     box-sizing: border-box;
 }
 
+.hidden {
+    opacity: 0;
+}
+
 body {
     background-color: rgb(16, 19, 28);
 }
@@ -17,14 +21,12 @@ body {
     border-radius: 8px;
 }
 
-p{
-    color: #fff;
-}
-
 /* player search */
 
 .search_menu{
     width: 1100px; height: 150px;
+    display: flex;
+    align-items: center;
 }
 
 .search_menu > .search_bar {
@@ -44,12 +46,47 @@ p{
     cursor: pointer;
 }
 
-.server_location_box > #server_location {
+.server_location_box > .server_location_select {
+    width: 120px; height: 32px;
+    position: relative;
+    border-right: 1px solid rgb(174, 173, 173);
+}
+
+.server_location_select > .select_box {
     width: 120px; height: 32px;
     padding: 6px 8px 6px 16px;
-    font-size: 14px;
     border: none;
-    border-right: 1px solid rgb(174, 173, 173);
+    display: flex;
+    justify-content: space-between;
+}
+
+.select_box > #server_location {
+    font-size: 17px;
+    width: 74px; height: 20px;
+    color: rgb(125, 120, 120);
+}
+
+.select_box > #expand {
+    display: flex;
+    align-items: center;
+    width: 20px; height: 20px;
+    color: rgb(125, 120, 120);
+}
+
+
+.server_location_select > .server_location_btnbox {
+    top: 6px;
+    position: relative;
+    background-color: #fff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 120px;
+}
+
+.server_location_btnbox > p {
+    width: 120px; height: 28px;
+    color: rgb(125, 120, 120);
+    padding: 4px 8px;
 }
 
 .search_bar > .input_label > #game_name {
@@ -59,7 +96,7 @@ p{
     cursor: pointer;
 }
 
-.search_bar > #search_btn {
+.search_bar  #search_btn {
     width: 44px; height: 56px;
     padding: 0 12px;
     display: flex;
@@ -83,10 +120,27 @@ p{
     align-items: center;
 }
 
-.player_info > #player_icon {
+.player_info > .player_icon_box {
+    position: relative;
+}
+
+.player_icon_box > #player_icon {
     display: inline-block;
-    width: 100; height: 100px;
+    width: 120px; height: 120px;
     border-radius: 6px;
+    margin: 0 20px 0 20px;
+}
+
+.player_icon_box > #player_level {
+    bottom: 18px; left: 60px;
+    width: 36px; height: 20px;
+    text-align: center;
+    position: relative;
+    background-color: rgb(16, 19, 28);
+    font-size: 12px;
+    padding: 4px;
+    color: #fff;
+    border-radius: 3px;
 }
 
 .player_info > .player_name_and_level {
@@ -96,15 +150,22 @@ p{
 }
 
 .player_box > #player_name{
-    font-size: 14px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
 }
 
-.player_box > #player_level{
-    font-size: 14px;
+#player_name > #player_tag {
+    font-size: 24px;
+    color: rgb(125, 120, 120);
 }
+
+
 
 .player_box > #player_location{
     font-size: 14px;
+    color: #fff;
+
 }
 
 .player_box > #reload_btn {
