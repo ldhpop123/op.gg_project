@@ -1,0 +1,151 @@
+* {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(16, 19, 28);
+}
+
+.container {
+    width: 1100px;
+    margin: 0 auto;
+}
+.container section{
+    background-color: rgb(31, 35, 49);
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+p{
+    color: #fff;
+}
+
+/* player search */
+
+.search_menu{
+    width: 1100px; height: 150px;
+}
+
+.search_menu > .search_bar {
+    width: 600px; height: 56px;
+    margin: 0 auto;
+    border: none; border-radius: 8px;
+    display: flex;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.search_bar > .server_location_box {
+    width: 120px; height: 56px;
+    display: flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+.server_location_box > #server_location {
+    width: 120px; height: 32px;
+    padding: 6px 8px 6px 16px;
+    font-size: 14px;
+    border: none;
+    border-right: 1px solid rgb(174, 173, 173);
+}
+
+.search_bar > .input_label > #game_name {
+    width: 435px; height: 56px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.search_bar > #search_btn {
+    width: 44px; height: 56px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+/* player information*/
+
+.player_menu {
+    width: 1100px; height: 220px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.player_menu > .player_info {
+    flex: 1;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.player_info > #player_icon {
+    display: inline-block;
+    width: 100; height: 100px;
+    border-radius: 6px;
+}
+
+.player_info > .player_name_and_level {
+    height: 76px;
+    display: flex;
+    flex-direction: column;
+}
+
+.player_box > #player_name{
+    font-size: 14px;
+}
+
+.player_box > #player_level{
+    font-size: 14px;
+}
+
+.player_box > #player_location{
+    font-size: 14px;
+}
+
+.player_box > #reload_btn {
+    border: 1px solid black;
+}
+
+.player_menu > .player_rank {
+    flex: 2;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.player_rank img {
+    width: 50px; height: 50px;
+}
+
+.player_rank > .solo_rank_box {
+    
+}
+
+/* player_summary */
+
+.summary_menu {
+    height: 200px;
+    display: flex;
+}
+
+.summary_menu > .history {
+    flex: 1;
+    border: 1px solid black;
+}
+
+.summary_menu > .champion {
+    flex: 1;
+    border: 1px solid black;
+}
+
+.summary_menu > .position {
+    flex: 1;
+    border: 1px solid black;
+}
+
+/* 20game_menu */

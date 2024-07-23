@@ -4,9 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./main.css">
 </head>
 <body>
+    <div class="container">
+        <section class="search_menu">
+            <div class="search_bar">
+                
+                <div class="server_location_box">
+                    <select name="server_location" id="server_location">
+                        <option value="KR">KR</option>
+                        <option value="EUW">EUW</option>
+                        <option value="NA">NA</option>
+                    </select>
+                </div>
+
+                <label for="" class="input_label"><input type="text" id="game_name"></label>
+
+                <div id="search_btn">
+                    <i class="material-icons" id>search</i>
+                </div>
+            </div>
+        </section>
     
+        <section class="player_menu">
+            <div class="player_info">
+                <img src="https://img2.quasarzone.com/editor/2021/07/05/15eedf8ece1ace241f9470b577b9f207.jpg" alt="" id="player_icon">
+                <div class="player_box">
+                    <p id="player_name">ldhpop123<span id="player_tag">#KR1</span></p>
+                    <p id="player_level">level 180</p>
+                    <p id="player_location">KR</p>
+                    <div id="reload_btn">전적갱신</div>
+                </div> 
+            </div>
+            
+            <div class="player_rank">
+                <div class="solo_rank_box">
+                    <p>solo_rank</p>
+                    <img src="https://your.gg/images/emblem/Unranked.png" alt="" id="solo_rank_img">
+                </div>
+
+                <div class="free_rank_box">
+                    <img src="https://your.gg/images/emblem/Unranked.png" alt="" id="free_rank_img">
+                </div>
+            </div>
+
+        </section>
+    
+        <section class="summary_menu">
+            <div class="history">
+                <div class="winrate">
+                    <p><span id="win_score">1</span>승 <span id="loss_score">1</span>패 <span class="re_score">1</span>무 / <span id="winrate">50</span>%</p>
+                </div>
+                <div class="kda_box">
+                    <p>KDA <span id="kda_score">1.0</span></p>
+                </div>
+                <div class="kill_death_assist">
+                    <p><span id="kill_score">1</span> / <span id="death_score">1</span> / <span id="assist_score">1</span></p>
+                </div>
+            </div>
+
+            <div class="champion">
+
+            </div>
+
+            <div class="position">
+
+            </div>
+        </section>
+    
+        <section class="20game_menu">
+            <div class="game_block">
+                <div class="game_info">
+
+                </div>
+
+                <div class="champion_info">
+                    <div class="">
+                        <div class="champion_icon"></div>
+
+                        <div class="spell"></div>
+    
+                        <div></div>
+                    </div>
+                    
+                    <div class="bottom">
+                        <div ></div>
+                    </div>
+                </div>
+
+                <div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        riot_API = 'RGAPI-f4a774c7-fc70-4f10-8f92-b3c8915995aa';
+    </script>
 </body>
 </html>
