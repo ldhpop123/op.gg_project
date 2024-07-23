@@ -11,31 +11,29 @@ body {
     background-color: rgb(16, 19, 28);
 }
 
-.container {
-    width: 1100px;
-    margin: 0 auto;
-}
-.container section{
-    background-color: rgb(31, 35, 49);
-    margin: 20px 0;
-    border-radius: 8px;
-}
-
 /* player search */
 
 .search_menu{
-    width: 1100px; height: 150px;
+    width: 1100px; height: 270px;
     display: flex;
-    align-items: center;
+    margin: 10px auto;
+    background-color: rgb(31, 35, 49);
+    border-radius: 8px;
 }
 
-.search_menu > .search_bar {
+.search_menu > .left {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.search_menu > .left > .search_bar {
     width: 600px; height: 56px;
-    margin: 0 auto;
     border: none; border-radius: 8px;
     display: flex;
     cursor: pointer;
     background-color: #fff;
+    margin: 20px 0 20px 20px;
 }
 
 .search_bar > .server_location_box {
@@ -73,7 +71,6 @@ body {
     color: rgb(125, 120, 120);
 }
 
-
 .server_location_select > .server_location_btnbox {
     top: 6px;
     position: relative;
@@ -105,34 +102,26 @@ body {
     cursor: pointer;
 }
 
-/* player information*/
+/* player info*/
 
-.player_menu {
-    width: 1100px; height: 220px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.player_menu > .player_info {
-    flex: 1;
-    border: 1px solid black;
+.left > .player_info {
+    width: 550px; height: 160px;
     display: flex;
     align-items: center;
 }
 
-.player_info > .player_icon_box {
+.left > .player_icon_box {
     position: relative;
 }
 
 .player_icon_box > #player_icon {
-    display: inline-block;
-    width: 120px; height: 120px;
+    width: 140px; height: 140px;
     border-radius: 6px;
-    margin: 0 20px 0 20px;
+    margin:  20px 20px 0 20px;
 }
 
 .player_icon_box > #player_level {
-    bottom: 18px; left: 60px;
+    bottom: 18px; left: 70px;
     width: 36px; height: 20px;
     text-align: center;
     position: relative;
@@ -149,6 +138,22 @@ body {
     flex-direction: column;
 }
 
+.player_box > .mini_player_rank{
+    color: #fff;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.mini_player_rank > #solo_rank_img {
+    width: 20px; height: 20px;
+    margin: 0 5px 0 0;
+}
+
+.mini_player_rank > span {
+    margin: 0 5px;
+}
+
 .player_box > #player_name{
     font-size: 24px;
     font-weight: bold;
@@ -160,53 +165,68 @@ body {
     color: rgb(125, 120, 120);
 }
 
-
-
 .player_box > #player_location{
-    font-size: 14px;
+    font-size: 16px;
     color: #fff;
-
 }
 
 .player_box > #reload_btn {
-    border: 1px solid black;
+    margin-top: 10px;
+    width: 130px; height: 45px;
+    border: none; border-radius: 8px;
+    background-color: rgb(33, 58, 150);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
 }
 
-.player_menu > .player_rank {
-    flex: 2;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
+#reload_btn > p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* player rank */
+
+.search_menu > .right {
+    width: 450px; height: 230px;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 8px;
 }
 
 .player_rank img {
     width: 50px; height: 50px;
 }
 
-.player_rank > .solo_rank_box {
-    
-}
+/* ----------------------------------------- */
 
-/* player_summary */
-
-.summary_menu {
-    height: 200px;
+.main {
+    width: 1100px; height: 1000px;
+    margin: 0 auto;
     display: flex;
 }
 
-.summary_menu > .history {
-    flex: 1;
+/* main left*/
+
+.main > .left {
+    width: 380px;
+    margin: 10px 20px 0 0;
     border: 1px solid black;
 }
 
-.summary_menu > .champion {
-    flex: 1;
+/* main right*/
+
+.main > .right {
+    width: 700px;
+    margin: 10px 0 0 0;
     border: 1px solid black;
 }
 
-.summary_menu > .position {
-    flex: 1;
-    border: 1px solid black;
+.right > .winrate {
+    width: 100%; height: 200px;
+    background-color: rgb(31, 35, 49);
+    border-radius: 8px;
 }
-
-/* 20game_menu */
