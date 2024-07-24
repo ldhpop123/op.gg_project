@@ -394,7 +394,11 @@ body {
 }
 
 /* game_info */
-
+/* 
+.game > .game_info {
+    border-left: 1px solid black;
+    margin: 0 0 0 8px;
+} */
 
 
 
