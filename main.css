@@ -278,6 +278,8 @@ body {
     background-color: rgb(130, 135, 153);
 }
 
+/* champion_info */
+
 .champion_info > .top {
     display: flex;
     margin: 2px 0 0 0 ;
@@ -349,6 +351,52 @@ body {
     width: 24px; height: 24px;
     border-radius: 8px;
 }
+
+.top > .kda_info {
+    display: flex;
+    flex-direction: column;
+    margin: 8px; 
+}
+
+.kda_info > .kda {
+    font-size: 15px;
+    font-weight: 700;
+    color: rgb(229, 231, 235);
+}
+
+.kda_info > .kda_score {
+    font-size: 14px;
+    margin: 6px auto;
+    color: rgb(130, 135, 153);
+}
+
+/* champion_info_bottom */
+
+.champion_info > .bottom {
+    display: flex;
+}
+
+.bottom > .items_info{
+    display: flex;
+    margin: -8px 0 0 0;
+}
+
+.items_info > .item {
+    width: 26px; height: 26px;
+    background-color: #4f5770;
+    margin: 0 4px 0 0;
+    border-radius: 8px;
+}
+
+.item > img {
+    width: 26px; height: 26px;
+    border-radius: 8px;
+}
+
+/* game_info */
+
+
+
 
 
 /* win & loss*/
