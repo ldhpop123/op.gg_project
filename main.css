@@ -63,7 +63,6 @@ body {
     font-size: 15px;
     width: 74px; height: 20px;
     color: rgb(125, 120, 120);
-    padding: 2px 0;
 }
 
 .select_box > #expand {
@@ -215,15 +214,91 @@ body {
 /* player rank */
 
 .search_menu > .right {
-    width: 450px; height: 230px;
-    background-color: #fff;
+    width: 440px; height: 230px;
     margin: 20px;
     border-radius: 8px;
 }
 
-.player_rank img {
-    width: 50px; height: 50px;
+.right > .player_rank {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
 }
+
+.player_rank > .dlvider {
+    width: 430px; height: 1px;
+    background-color: rgb(130, 135, 153);
+}
+
+.player_rank > .rank_box {
+    width: 430px; height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rank_box > .rank_icon_box {
+    width: 72px; height: 72px;
+    border-radius: 72px;
+    background-color: #353a47;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.rank_icon_box > img {
+    width: 65px; height: 65px;
+    object-fit: cover;
+    margin: 10px 0 0 0;
+}
+
+.rank_box > .rank_info {
+    width: 220px;
+}
+
+.rank_info > .main_rank {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.rank_info > .rank_mode_lp {
+    display: flex;
+    align-items: center;
+}
+
+.rank_mode_lp > .rank_mode {
+    color: rgb(33, 58, 150);
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 20px 0 0;
+}
+
+.rank_mode_lp > .main_lp {
+    color: rgb(125, 120, 120);
+    font-size: 14px;
+    margin: 0 20px 0 0;
+}
+
+.rank_box > .rank_winrate {
+    display: flex;
+    flex-direction: column;
+}
+
+.rank_winrate > .main_wins_losses {
+    color: rgb(125, 120, 120);
+    font-size: 16px;
+    text-align: right;
+}
+
+.rank_winrate > .main_winrate {
+    color: rgb(125, 120, 120);
+    font-size: 14px;
+    text-align: right;
+}
+
 
 /* ----------------------------------------- */
 
