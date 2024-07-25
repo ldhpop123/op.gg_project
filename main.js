@@ -78,6 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     result['tier'] = response.data[i].tier
                     result['rank'] = response.data[i].rank
                     result['lp'] = response.data[i].leaguePoints
+                    result['wins'] = response.data[i].wins
+                    result['losses'] = response[i].losses
                     
                     rank_li[response.data[i].queueType] = result
                 }
