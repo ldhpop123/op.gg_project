@@ -1,6 +1,12 @@
 const riot_API = 'RGAPI-2b3aaa53-82c7-4995-9c4d-9f30dd57d041';
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    function first_upper(target) {
+        result = target[0].toUpperCase() + target.substring(1, target.length).toLowerCase()
+        console.log(result)
+        return result
+    }
     
     // functions
     function reload() {
@@ -41,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 server = last_game[0]
 
                 post_player_location.textContent = server
+                player_location_flag.src = `https://flagsapi.com/${server.substring(0, 2)}/flat/64.png`
         });
 
         // summoner_id_api
@@ -76,11 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 console.log(rank_li)
 
-                solo_rank_text = `${rank_li['RANKED_SOLO_5x5']['tier']} ${rank_li['RANKED_SOLO_5x5']['rank']}`
-                console.log(solo_rank_text)
-                mini_rank_icon.src = `https://your.gg/images/emblem/${rank_li['RANKED_SOLO_5x5']['tier']}.png`
-                post_mini_rank.textContent = solo_rank_text
-                post_mini_rank_lp.textContent = rank_li['RANKED_SOLO_5x5']['lp']+'LP'
+                if (rank_li['RANKED_SOLO_5x5']) {
+                    solo_rank_text = `${first_upper(rank_li['RANKED_SOLO_5x5']['tier'])} ${rank_li['RANKED_SOLO_5x5']['rank']}`
+                    console.log(solo_rank_text)
+                    mini_rank_icon.src = `https://your.gg/images/emblem/${first_upper(rank_li['RANKED_SOLO_5x5']['tier'])}.png`
+                    post_mini_rank.textContent = solo_rank_text
+                    post_mini_rank_lp.textContent = rank_li['RANKED_SOLO_5x5']['lp']+'LP'
+                } else {
+                    mini_rank_icon.src = `https://your.gg/images/emblem/Unranked.png`
+                    post_mini_rank.textContent = 'Unranked'
+                    post_mini_rank_lp.textContent = '0LP'
+                }
             })
     }   
 
@@ -99,10 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const post_player_tag = document.querySelector('#player_tag')
     const profile_icon = document.querySelector('#player_icon')
     const post_player_level = document.querySelector('#player_level')
+    const player_location_flag = document.querySelector('#flag')
     const post_player_location = document.querySelector('#player_location')
     const mini_rank_icon = document.querySelector('#solo_rank_img')
     const post_mini_rank = document.querySelector('#solo_rank')
-    const post_mini_rank_lp = document.querySelector('#solo_lp')
+    const post_mini_rank_lp = document.querySelector('#solo_rank_lp')
 
     // location_select_box
     select_box.addEventListener('click', () => {
