@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/main.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./main.css">
 </head>
@@ -17,13 +18,14 @@
                     <div class="server_location_box">
                         <div class="server_location_select">
                             <div class="select_box">
-                                <p id="server_location">KR</p>
+                                <p id="server_location">ASIA</p>
                                 <p class="material-icons" id="expand">expand_less</p>
                             </div>
                             <div class="server_location_btnbox hidden">
-                                <p class="server_location_btn">KR</p>
-                                <p class="server_location_btn">EUW</p>
-                                <p class="server_location_btn">NA</p>
+                                <p class="server_location_btn">ASIA</p>
+                                <p class="server_location_btn">AMERICAS</p>
+                                <p class="server_location_btn">EUROPE</p>
+                                <p class="server_location_btn">ESPORTS</p>
                             </div>
                         </div>
                     </div>
@@ -38,12 +40,20 @@
             
                 <div class="player_info">
                     <div class="player_icon_box">
-                        <img src="https://img2.quasarzone.com/editor/2021/07/05/15eedf8ece1ace241f9470b577b9f207.jpg" alt="" id="player_icon">
+                        <img src="https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon5314.jpg" alt="" id="player_icon">
                         <p id="player_level">180</p>
                     </div>
                     <div class="player_box">
-                        <p class="mini_player_rank"><img src="https://your.gg/images/emblem/Gold.png" alt="" id="solo_rank_img" ><span id="solo_rank">GOLD II</span> | <span id="solo_rank_lp">12LP</span></p>
-                        <p id="player_name">ldhpop123 <span id="player_tag">#KR1</span></p>
+                        <div class="mini_player_rank">
+                            <img src="https://your.gg/images/emblem/Gold.png" alt="" id="solo_rank_img" >
+                            <p id="solo_rank">GOLD I</p>
+                            <p id="solo_rank_lp">12LP</p>
+                        </div>
+                        
+                        <div class="name_tag_box">
+                            <p id="player_name">ldhpop123</p>
+                            <p id="player_tag">#KR1</p>
+                        </div>
                         <p id="player_location">KR</p>
                         <div id="reload_btn">
                             <p>전적갱신</p>
@@ -114,8 +124,8 @@
 
                             <div class="bottom">
                                 <div class="items_info">
-                                    <div class="item">
-                                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/3031.png" alt="" id="itme_0">
+                                    <div class="item" id="item_0">
+                                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/3031.png" alt="" >
                                     </div>
                                     <div class="item">
                                         <img src="" id="itme_1">
@@ -143,41 +153,13 @@
 
                         </div>
                     </div>
-
-                </div>
                 <!-- end -->
+                </div>
+
+                
             </section>
         </section>
         
     </div>
-
-    <script>
-        riot_API = 'RGAPI-f4a774c7-fc70-4f10-8f92-b3c8915995aa';
-
-        // search_bar
-        select_box = document.querySelector('.server_location_select')
-        select_hidden_box = document.querySelector('.server_location_btnbox')
-        server_location = document.querySelector('#server_location')
-        expand = document.querySelector('#expand')
-
-        // location_select_box
-        select_box.addEventListener('click', (e) => {
-            if (select_hidden_box.classList.contains('hidden')) {
-                select_hidden_box.classList.remove('hidden');
-                expand.textContent = 'expand_more'
-            } else {
-                select_hidden_box.classList.add('hidden');
-                expand.textContent = 'expand_less'
-            };
-        });
-        
-        // location_select_btn
-        select_hidden_box.addEventListener('click', (e) => {
-            server_location.textContent = e.target.textContent
-        })
-
-
-
-    </script>
 </body>
 </html>

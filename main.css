@@ -59,7 +59,7 @@ body {
 }
 
 .select_box > #server_location {
-    font-size: 17px;
+    font-size: 15px;
     width: 74px; height: 20px;
     color: rgb(125, 120, 120);
 }
@@ -129,7 +129,6 @@ body {
     position: relative;
     background-color: rgb(16, 19, 28);
     font-size: 12px;
-    padding: 4px;
     color: #fff;
     border-radius: 3px;
 }
@@ -152,17 +151,26 @@ body {
     margin: 0 5px 0 0;
 }
 
-.mini_player_rank > span {
-    margin: 0 5px;
+.mini_player_rank > #solo_rank {
+    border-right: 1px solid rgb(130, 139, 149);
 }
 
-.player_box > #player_name{
+.mini_player_rank > p {
+    padding: 0 5px;
+}
+
+.player_box > .name_tag_box {
+    display: flex;
+}
+
+.name_tag_box > #player_name{
     font-size: 24px;
     font-weight: bold;
     color: #fff;
+    margin: 0 4px 0 0;
 }
 
-#player_name > #player_tag {
+.name_tag_box > #player_tag {
     font-size: 24px;
     color: rgb(125, 120, 120);
 }
