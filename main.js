@@ -1,4 +1,4 @@
-const riot_API = 'RGAPI-67808b18-3702-4cbc-b8ef-b903236c22b3';
+const riot_API = 'RGAPI-53399241-4c55-4eb1-9670-eeddf53b04aa';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -9,8 +9,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // --functions--
-    function reload() {
-        display_player_info()
+    function search() {
+        document.querySelector('.games').innerHTML = ''
+
+        if (document.querySelector('.selected').textContent == '전체') {
+            search_type = ``
+        } else if (document.querySelector('.selected').textContent == '일반') {
+            search_type = `type=normal`
+        } else if (document.querySelector('.selected').textContent == '랭크') {
+            search_type = `type=ranked`
+        }
+
+        console.log(player_name_tag.value)
+        const name_tag_li = player_name_tag.value.split('#')
+        console.log(name_tag_li)
+        const input_name = name_tag_li[0]
+        const input_tag = name_tag_li[1]
+
+        display_player_info(input_name, input_tag, search_type)
+    }
+
+    function game_time(gameCreation, gameDuration) {
+        const date = new Date()
+
+        let target_days = ((date - gameCreation)/ 86400000).toFixed(0)
+        console.log(target_days)
+
+        if (target_days == 1) {
+            target_days = '하루 전'
+        } else if (target_days < 31) {
+            target_days = `${target_days}일 전`
+        } else if (target_days >= 31) {
+            target_days = '오래 전'
+        }
+
+        const game_minutes = (gameDuration / 60).toFixed(0)
+        const game_seconds = (gameDuration % 60)
+
+        return { target_days, game_minutes, game_seconds }
     }
 
     // puuid_api
@@ -133,8 +169,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // match_ids_api
-    async function match_ids_api(main_server, player_puuid) {
-        const response = await axios.get(`https://${main_server}.api.riotgames.com/lol/match/v5/matches/by-puuid/${player_puuid}/ids?start=0&count=20&api_key=${riot_API}`)
+    async function match_ids_api(main_server, player_puuid, search_type) {
+        const response = await axios.get(`https://${main_server}.api.riotgames.com/lol/match/v5/matches/by-puuid/${player_puuid}/ids?${search_type}&start=0&count=20&api_key=${riot_API}`)
+
         console.log(response.data)
         const match_ids = response.data
 
@@ -148,65 +185,183 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < 20; i++) {
             const response = await axios.get(`https://${main_server}.api.riotgames.com/lol/match/v5/matches/${match_ids[i]}?api_key=${riot_API}`)
             console.log(`game_${i}`, response.data)
-            let result = {}
-
             const game_index = i
-
-            // player_10
-            // player_10(response.data.info.participants)
-
-            // game_result
-            for(let i = 0; i < 10; i++) {
+            for(let i = 0; i<response.data.info.participants.length; i++) {
                 if (response.data.info.participants[i].puuid == player_puuid) {
                     target_player = response.data.info.participants[i]
-
-                    if (response.data.info.participants[i].win) {
-                        game_result = 'win'
-                    } else {
-                        game_result = 'loss'
-                    }
-                    console.log(game_result)
-                    break;
                 }
             }
 
-            const spell_dic = {
-                1: 'SummonerBoost',
-                3: 'SummonerExhaust',
-                4: 'SummonerFlash',
-                6: 'SummonerHaste',
-                7: 'SummonerHeal',
-                11: 'SummonerSmite',
-                12: 'SummonerTeleport',
-                14: 'SummonerDot',
-                21: 'SummonerBarrier',
-                32: 'SummonerSnowball'
-            }
-
-            // game_mode
-            if(response.data.info.queueId == 490) { //일반게임
-                game_mode = "빠른 대전"
-            }
-            else if (response.data.info.queueId == 450) { // 칼바람
-                game_mode = "ARAM"
-            }
-            else if (response.data.info.queueId == 440) { // 자랭
-                game_mode = "자유 랭크"
-            }
-            else if (response.data.info.queueId == 420) { // 솔랭
-                game_mode = "솔로 랭크"
-            }
-            else if (response.data.info.queueId == 1830 ) { // 집중포화
-                game_mode = "집중포화"
-            }
-
-            display_game_info(game_result, game_mode, game_index, target_player, spell_dic, response.data.info)
+            data_connector(game_index, target_player, response.data.info)
         }
+    }
+
+    function data_connector(game_index, target_player, response) {
+        const game_result = (target_player.win) ? 'win':'loss';
+        const game_mode = { 490: '빠른 대전', 450: 'ARAM', 440: '자유 랭크', 420: '솔로 랭크', 1830: '집중 포화'}
+        const game_result_text = (target_player.win) ? '승리':'패배';
+        const { target_days, game_minutes, game_seconds } = game_time(response.gameCreation, response.gameDuration)
+
+        append_game_div(game_result, game_index);
+        append_game_info(game_index, game_mode[response.queueId], game_result_text, target_days, game_minutes, game_seconds)
+
+        const spell_dic = { 1: 'SummonerBoost', 3: 'SummonerExhaust', 4: 'SummonerFlash', 6: 'SummonerHaste', 7: 'SummonerHeal', 11: 'SummonerSmite', 12: 'SummonerTeleport', 14: 'SummonerDot', 21: 'SummonerBarrier', 32: 'SummonerSnowball' };
+
+        append_champion_info(game_index, spell_dic, target_player)
+
+
+        append_main_game_info(game_index)
+        if (target_player.doubleKills == 1) {
+            document.querySelector(`#multi_kill_${game_index}`).innerHTML = `<p>${'더블 킬'}</p>`
+        } else if (target_player.tripleKills == 1) {
+            document.querySelector(`#multi_kill_${game_index}`).innerHTML = `<p>${'트리플 킬'}</p>`
+        } else if (target_player.quadraKills == 1) {
+            document.querySelector(`#multi_kill_${game_index}`).innerHTML = `<p>${'쿼드라 킬'}</p>`
+        } else if (target_player.pentaKills == 1) {
+            document.querySelector(`#multi_kill_${game_index}`).innerHTML = `<p>${'펜타 킬'}</p>`
+        }
+
+        append_player_10(game_index)
+        for(let i = 0; i < response.participants.length; i++){
+            let player = response.participants[i]
+            let player_name = (player.riotIdGameName+'#'+player.riotIdTagline).substring(0, 7)+'...'
+
+            if (i < 5) {
+                blue_5(game_index, player_name, player)
+            } else {
+                red_5(game_index, player_name, player)
+            }
+        }
+    }
+
+    function append_game_div(game_result, game_index) {
+        document.querySelector('.games').innerHTML += `
+        <div class="game">
+            <div class="flex ${game_result}_game" id="game_${game_index}">
+            </div>
+            <div class="advanced_info_btn ${game_result}_info_btn">
+                <p class="material-icons" id="advanced_expand">expand_less</p>
+            </div>
+        </div>
+        `
+    }
+    
+    function append_game_info(game_index, game_mode, game_result_text, target_days, game_minutes, game_seconds) {
+        document.querySelector(`#game_${game_index}`).innerHTML += `
+        <div class="game_info">
+            <p id="game_mode">${game_mode}</p>
+            <p id="game_date">${target_days}</p>
+            <div class="dlvider"></div>
+            <p id="game_result">${game_result_text}</p>
+            <p id="game_time">${game_minutes}분 ${game_seconds}초</p>
+        </div>
+        `
+    }
+    
+    function append_champion_info(game_index, spell_dic, target_player) {
+        document.querySelector(`#game_${game_index}`).innerHTML += `
+        <div class="champion_info">
+            <div class="top">
+                <div class="champion_icon_level_box">
+                    <div class="champion_icon_box">
+                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/champion/${target_player.championName}.png" alt="" id="champion_icon">
+                    </div>
+                    <p id="champion_level">${target_player.champLevel}</p>
+                </div>
+    
+                <div class="spell_info">
+                    <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/spell/${spell_dic[target_player.summoner1Id]}.png" alt="" id="spell_f" class="spell">
+                    <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/spell/${spell_dic[target_player.summoner2Id]}.png" alt="" id="spell_d" class="spell">
+                </div>
+    
+                <div class="rune_info">
+                    <div class="rune_background"><img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/perk/${target_player.perks.styles[0].selections[0].perk}.png" alt="" id="main_rune" class="rune"></div>
+                    <div class="rune_background"><img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/perkStyle/${target_player.perks.styles[1].style}.png" alt="" id="sub_rune" class="rune"></div>
+                </div>
+    
+                <div class="kda_info">
+                    <p class="kda"><span id="kill_score">${target_player.kills}</span> / <span id="death_score">${target_player.deaths}</span> / <span id="assist_score">${target_player.assists}</span></p>
+                    <p class="kda_score"><span id="kda_score">${target_player.challenges.kda.toFixed(1)}</span> KDA</p>
+                </div>
+            </div>
+    
+            <div class="bottom">
+                <div class="items_info">
+                    <div class="item" id="item_0">
+                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item0}.png" id="itme_0" onerror="this.style.display='none'">
+                    </div>
+                    <div class="item">
+                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item1}.png" id="itme_1" onerror="this.style.display='none'">
+                    </div>
+                    <div class="item">
+                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item2}.png" id="itme_2" onerror="this.style.display='none'">
+                    </div>
+                    <div class="item">
+                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item3}.png" id="itme_3" onerror="this.style.display='none'">
+                    </div>
+                    <div class="item">
+                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item4}.png" id="itme_4" onerror="this.style.display='none'">
+                    </div>
+                    <div class="item">
+                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item5}.png" id="itme_5" onerror="this.style.display='none'">
+                    </div>
+                    <div class="item">
+                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item6}.png" id="ward" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="verticalline"></div>
+        `
+    }
+    
+    function append_main_game_info(game_index) {
+        document.querySelector(`#game_${game_index}`).innerHTML += `
+        <div class="main_game_info">
+            <div class="game_score">
+                <p><span>딜량</span> 1등</p>
+                <p><span>분당</span> 7.9 CS</p>
+                <p><span>킬관여</span> 51%</p>
+            </div>
+            <div class="multi_kill" id="multi_kill_${game_index}">
+            </div>
+        </div>
+        `
+    }
+    
+    function append_player_10(game_index) {
+        document.querySelector(`#game_${game_index}`).innerHTML += `
+        <div class="player_10">
+            <div class="blue_team team" id="blue_p5_${game_index}"></div>
+            <div class="red_team team" id="red_p5_${game_index}"></div>
+        </div>
+        `
+    }
+
+    function blue_5(game_index, player_name, player) {
+        document.querySelector(`#blue_p5_${game_index}`).innerHTML += `
+        <div class="player">
+            <div class="champion_icon_box blue_icon">
+                <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/champion/${player.championName}.png" alt="" id="champion_icon">
+            </div>
+            <p class="player_name">${player_name}</p>
+        </div>
+        `
+    }
+
+    function red_5(game_index, player_name, player) {
+        document.querySelector(`#red_p5_${game_index}`).innerHTML += `
+        <div class="player">
+            <p class="player_name">${player_name}</p>
+            <div class="champion_icon_box red_icon">
+                <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/champion/${player.championName}.png" alt="" id="champion_icon">
+            </div>
+        </div>
+        `
     }
 
     function player_10(target_game) {
         const player_10_info = {}
-
         for(let i = 0; i<(target_game.length); i++ ) {
             const result = {}
 
@@ -243,13 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function display_player_info() {
-        // 입력바에서 name#tag를 받아와 #을 기준으로 분리
-        console.log(player_name_tag.value)
-        const name_tag_li = player_name_tag.value.split('#')
-        console.log(name_tag_li)
-        const input_name = name_tag_li[0]
-        const input_tag = name_tag_li[1]
+    async function display_player_info(input_name, input_tag, search_type) {
 
         // select에서 서버를 골라 가져오기
         const main_server = server_location.textContent
@@ -267,80 +416,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const rank_li = await rank_api(server, player_summoner_id);
 
         // match_ids_api
-        const match_ids = await match_ids_api(main_server, player_puuid);
+        const match_ids = await match_ids_api(main_server, player_puuid, search_type);
 
         // match_info
         match_info_api(main_server, match_ids, player_puuid)
-    }
-
-    function display_game_info(game_result, game_mode, game_index, target_player, spell_dic, response) {
-        document.querySelector('.games').innerHTML += `
-        <div class="game ${game_result}_game" id="game_${game_index}">
-            <div class="game_info">
-                <p id="game_mode">${game_mode}</p>
-                <p id="game_date">12일 전</p>
-                <div class="dlvider"></div>
-                <p id="game_result">승리</p>
-                <p id="game_time">26분 31초</p>
-            </div>
-
-            <div class="champion_info">
-                <div class="top">
-                    <div class="champion_icon_level_box">
-                        <div class="champion_icon_box">
-                            <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/champion/${target_player.championName}.png" alt="" id="champion_icon">
-                        </div>
-                        <p id="champion_level">${target_player.champLevel}</p>
-                    </div>
-
-                    <div class="spell_info">
-                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/spell/${spell_dic[target_player.summoner1Id]}.png" alt="" id="spell_f" class="spell">
-                        <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/spell/${spell_dic[target_player.summoner2Id]}.png" alt="" id="spell_d" class="spell">
-                    </div>
-
-                    <div class="rune_info">
-                        <div class="rune_background"><img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/perk/${target_player.perks.styles[0].selections[0].perk}.png" alt="" id="main_rune" class="rune"></div>
-                        <div class="rune_background"><img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/perkStyle/${target_player.perks.styles[1].style}.png" alt="" id="sub_rune" class="rune"></div>
-                    </div>
-
-                    <div class="kda_info">
-                        <p class="kda"><span id="kill_score">${target_player.kills}</span> / <span id="death_score">${target_player.deaths}</span> / <span id="assist_score">${target_player.assists}</span></p>
-                        <p class="kda_score"><span id="kda_score">${target_player.challenges.kda.toFixed(1)}</span> KDA</p>
-                    </div>
-                </div>
-
-                <div class="bottom">
-                    <div class="items_info">
-                        <div class="item" id="item_0">
-                            <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item0}.png" id="itme_0" onerror="this.style.display='none'">
-                        </div>
-                        <div class="item">
-                            <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item1}.png" id="itme_1" onerror="this.style.display='none'">
-                        </div>
-                        <div class="item">
-                            <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item2}.png" id="itme_2" onerror="this.style.display='none'">
-                        </div>
-                        <div class="item">
-                            <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item3}.png" id="itme_3" onerror="this.style.display='none'">
-                        </div>
-                        <div class="item">
-                            <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item4}.png" id="itme_4" onerror="this.style.display='none'">
-                        </div>
-                        <div class="item">
-                            <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item5}.png" id="itme_5" onerror="this.style.display='none'">
-                        </div>
-                        <div class="item">
-                            <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/item/${target_player.item6}.png" id="ward" onerror="this.style.display='none'">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="game_info">
-
-            </div>
-        </div>`
-        
     }
 
     // -search_bar-
@@ -372,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // search_btn
     search_btn.addEventListener('click', () => {
         if (player_name_tag.value != '') {
-            reload()
+            search()
         } else {
             console.log('입력해주세요');
         }
@@ -385,7 +464,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList[1] == undefined && e.target.classList[0] == 'game_mode_select') {
             document.querySelector('.selected').classList.remove('selected')
             e.target.classList.add('selected')
-            // 함수와 연결
+
+            search()
         }
     })
 });

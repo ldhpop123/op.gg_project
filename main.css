@@ -347,7 +347,6 @@ body {
 .main_body > .left {
     width: 380px;
     margin: 10px 20px 0 0;
-    border: 1px solid black;
 }
 
 /* main right*/
@@ -355,14 +354,13 @@ body {
 .main_body > .right {
     width: 700px;
     margin: 10px 0 0 0;
-    border: 1px solid black;
 }
 
 .right > .winrate {
     width: 100%; height: 200px;
     background-color: rgb(31, 35, 49);
     border-radius: 8px;
-    margin: 0 0 20px 0 ;
+    margin: 0 0 10px 0 ;
 }
 
 .winrate > .top {
@@ -375,20 +373,24 @@ body {
     width: 100%;
 }
 
+.games .flex {
+    display: flex;
+}
+
 .games > .game {
     display: flex;
 }
 
-.game > .game_info {
-    margin: 0 30px 0 0;
+.game .game_info {
+    margin: 0 15px 0 0;
 }
 
-.games #game_mode {
+.game #game_mode {
     font-size: 12px;
     padding: 4px 0;
 }
 
-.games #game_date {
+.game #game_date {
     font-size: 12px;
     color: rgb(229, 231, 235);
 }
@@ -398,19 +400,23 @@ body {
     color: rgb(130, 135, 153);
 }
 
-.games #game_time {
+.game #game_time {
     font-size: 12px;
     padding: 4px 0;
     color: rgb(130, 135, 153);
 }
 
-.games .dlvider {
+.game .dlvider {
     width: 48px; height: 1px;
     margin: 8px 0;
     background-color: rgb(130, 135, 153);
 }
 
 /* champion_info */
+
+.game .champion_info {
+    width: 220px;
+}
 
 .champion_info > .top {
     display: flex;
@@ -487,7 +493,8 @@ body {
 .top > .kda_info {
     display: flex;
     flex-direction: column;
-    margin: 8px; 
+    padding: 8px 0; 
+    margin: 0 0 0 13px;
 }
 
 .kda_info > .kda {
@@ -526,18 +533,114 @@ body {
 }
 
 /* game_info */
-/* 
-.game > .game_info {
-    border-left: 1px solid black;
-    margin: 0 0 0 8px;
-} */
+
+.game .verticalline {
+    width: 1px; height: 100%;
+    background-color: rgba(130, 135, 153, 0.158);
+    margin: 0 15px;
+}
+
+.game .main_game_info {
+    padding: 0 30px 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.game_score  p {
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+}
+
+.game_score span {
+    font-size: 10px;
+    color: #828799;
+}
+
+/* player_10 */
+
+.game .player_10 {
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
 
 
+.player_10 .team {
+    display: flex;
+    flex-direction: column;
+}
 
+.team .player {
+    display: flex;
+    margin: 0 0 4px 0;
+}
+
+.player_10 .champion_icon_box {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    position: relative;
+    margin: 0 4px 0 0;
+}
+
+.player_10 .red_icon {
+    margin: 0 0 0 4px;
+}
+
+.player_10 .champion_icon_box > #champion_icon {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+}
+
+.player_10  .player_name {
+    font-size: 10px;
+    color: #828799;
+}
+
+.player_10 > .red_team > .player {
+    display: flex;
+    justify-content: end;
+}
+
+.multi_kill > p {
+    padding: 2px 6px;
+    margin: 4px 0;
+    font-size: 10px;
+    background-color: #eb5757;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+/* btn */
+
+.game > .advanced_info_btn {
+    width: 32px; height: 120px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding-bottom: 4px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    cursor: pointer;
+}
+
+.advanced_info_btn > p {
+    color: #828799;
+}
 
 /* win & loss*/
 
-.games > .win_game {
+.games .win_game {
     width: 100%; height: 120px;
     border-left: 5px solid rgb(33, 58, 150);
     background-color: rgba(33, 58, 150, 0.15);
@@ -550,7 +653,11 @@ body {
     padding: 4px 0;
 }
 
-.games > .loss_game {
+.games .win_info_btn {
+    background-color: #213a964d;
+}
+
+.games .loss_game {
     width: 100%; height: 120px;
     border-left: 5px solid rgb(227, 70, 70);
     background-color: rgba(227, 70, 70, 0.15);
@@ -561,4 +668,8 @@ body {
 .loss_game #game_mode {
     color: rgb(227, 70, 70);
     padding: 4px 0;
+}
+
+.games .loss_info_btn {
+    background-color: #e346464d;
 }
