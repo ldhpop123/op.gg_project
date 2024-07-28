@@ -361,10 +361,73 @@ body {
     background-color: rgb(31, 35, 49);
     border-radius: 8px;
     margin: 0 0 10px 0 ;
+    padding: 16px;
 }
 
 .winrate > .top {
+    display: flex;
+}
 
+.top > .rate_box {
+    width: 240px;
+    background-color: rgb(16, 19, 28);
+    border-radius: 8px;
+    padding: 8px 8px 16px 8px;
+}
+
+.rate_box .history {
+    font-size: 18px;
+    color: #3d89ff;
+    text-align: center;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.rate_box > .bottom {
+    display: flex;
+    justify-content: center;
+}
+
+.rate_box .donut {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: conic-gradient(#3F8BC9 0% 45%, #828799 45% 100%);
+}
+.donut .center {
+    width: 75%;
+    height: 75%;
+    background-color: rgb(16, 19, 28);
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    color: #fff;
+    line-height: 37.5px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.rate_box .kda_history {
+
+}
+
+.kda_history > .kda_rate {
+    width: 120px;
+    color: #dadfe7;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.kda_history > .k_d_a_rate {
+    width: 120px;
+    color: #828799;
+    font-size: 16px;
+    text-align: center;
 }
 
 /* games */
@@ -534,6 +597,10 @@ body {
 
 /* game_info */
 
+.game .game_info {
+    width: 55px;
+}
+
 .game .verticalline {
     width: 1px; height: 100%;
     background-color: rgba(130, 135, 153, 0.158);
@@ -604,9 +671,45 @@ body {
     color: #828799;
 }
 
+.red_team .player_10_name {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.player_10 .target_bold {
+    color: #dadfe7;
+}
+
 .player_10 > .red_team > .player {
     display: flex;
     justify-content: end;
+}
+
+.player_10 .target_bold {
+    font-weight: 700;
+}
+
+.progress-bar {
+    width: 76px;
+    height: 1px;
+}
+
+.red_team .progress-bar {
+    display: flex;
+    justify-content: right;
+}
+
+.progress-bar .blue_bar {
+    height: 1px;
+    padding: 0;
+    background-color: #0b89cf;
+}
+
+.progress-bar .red_bar {
+    height: 1px;
+    padding: 0;
+    background-color: #e34646;
 }
 
 .multi_kill > p {
@@ -673,3 +776,4 @@ body {
 .games .loss_info_btn {
     background-color: #e346464d;
 }
+

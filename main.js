@@ -1,4 +1,4 @@
-const riot_API = 'RGAPI-53399241-4c55-4eb1-9670-eeddf53b04aa';
+const riot_API = 'RGAPI-44b308e2-d046-445b-92ea-80438e6b334d';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -192,11 +192,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            data_connector(game_index, target_player, response.data.info)
+            data_connector(game_index, target_player, player_puuid, response.data.info)
         }
     }
 
-    function data_connector(game_index, target_player, response) {
+    function data_connector(game_index, target_player, player_puuid, response) {
         const game_result = (target_player.win) ? 'win':'loss';
         const game_mode = { 490: '빠른 대전', 450: 'ARAM', 440: '자유 랭크', 420: '솔로 랭크', 1830: '집중 포화'}
         const game_result_text = (target_player.win) ? '승리':'패배';
@@ -222,14 +222,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         append_player_10(game_index)
+        let max_dps = 0
+        for(let i = 0; i<response.participants.length; i++ ){
+            max_dps = response.participants[i].totalDamageDealtToChampions > max_dps ? response.participants[i].totalDamageDealtToChampions : max_dps
+            console.log(max_dps)
+        }
+
         for(let i = 0; i < response.participants.length; i++){
             let player = response.participants[i]
             let player_name = (player.riotIdGameName+'#'+player.riotIdTagline).substring(0, 7)+'...'
 
-            if (i < 5) {
-                blue_5(game_index, player_name, player)
+            if (response.participants[i].puuid == player_puuid) {
+                bold = 'target_bold'
             } else {
-                red_5(game_index, player_name, player)
+                bold = ''
+            }
+
+            dps_bar = `style="width:${(response.participants[i].totalDamageDealtToChampions / (max_dps/100)).toFixed(0)}%;"`
+
+            if (i < 5) {
+                blue_5(game_index, player_name, bold, dps_bar, player)
+            } else {
+                red_5(game_index, player_name, bold, dps_bar, player)
             }
         }
     }
@@ -338,21 +352,31 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     }
 
-    function blue_5(game_index, player_name, player) {
+    function blue_5(game_index, player_name, bold, dps_bar, player) {
         document.querySelector(`#blue_p5_${game_index}`).innerHTML += `
         <div class="player">
             <div class="champion_icon_box blue_icon">
                 <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/champion/${player.championName}.png" alt="" id="champion_icon">
             </div>
-            <p class="player_name">${player_name}</p>
+            <div class="player_10_name">
+                <p class="player_name ${bold}">${player_name}</p>
+                <div class="progress-bar">           
+                    <div class="blue_bar" ${dps_bar}></div>
+                </div>
+            </div>
         </div>
         `
     }
 
-    function red_5(game_index, player_name, player) {
+    function red_5(game_index, player_name, bold, dps_bar, player) {
         document.querySelector(`#red_p5_${game_index}`).innerHTML += `
         <div class="player">
-            <p class="player_name">${player_name}</p>
+            <div class="player_10_name">
+                <p class="player_name ${bold}">${player_name}</p>
+                <div class="progress-bar">           
+                    <div class="red_bar" ${dps_bar}></div>
+                </div>
+            </div>
             <div class="champion_icon_box red_icon">
                 <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/champion/${player.championName}.png" alt="" id="champion_icon">
             </div>
