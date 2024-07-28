@@ -182,21 +182,40 @@ document.addEventListener('DOMContentLoaded', () => {
     async function match_info_api(main_server, match_ids, player_puuid) {
         games_value = {}
 
-        for (let i = 0; i < 20; i++) {
+        const game_result_dic = {'game_count' : 0, 'win': 0, 'loss': 0 }
+        const game_kda_dic = { 'kda': 0, 'kill': 0, 'death': 0, 'assist': 0 }
+
+        for (let i = 0; i < match_ids.length; i++) {
             const response = await axios.get(`https://${main_server}.api.riotgames.com/lol/match/v5/matches/${match_ids[i]}?api_key=${riot_API}`)
             console.log(`game_${i}`, response.data)
             const game_index = i
+
             for(let i = 0; i<response.data.info.participants.length; i++) {
                 if (response.data.info.participants[i].puuid == player_puuid) {
                     target_player = response.data.info.participants[i]
                 }
             }
 
-            data_connector(game_index, target_player, player_puuid, response.data.info)
+            game_result_dic['game_count'] += 1;
+            target_player.win ? game_result_dic['win'] += 1 : game_result_dic['loss'] += 1
+
+            game_kda_dic['kda'] += (target_player.challenges.kda)/match_ids.length
+            game_kda_dic['kill'] += (target_player.kills)/match_ids.length
+            game_kda_dic['death'] += (target_player.deaths)/match_ids.length
+            game_kda_dic['assist'] += (target_player.assists)/match_ids.length
+
+            games_data_connector(game_index, target_player, player_puuid, response.data.info)
+            console.log(game_result_dic, game_kda_dic, match_ids.length)
+            const winrate = ((100/game_result_dic['game_count'])*game_result_dic['win']).toFixed(0)+'%'
+            append_winrate_box(game_result_dic, game_kda_dic, winrate)
         }
+
+        // console.log(game_result_dic, game_kda_dic, match_ids.length)
+        // const winrate = ((100/game_result_dic['game_count'])*game_result_dic['win']).toFixed(0)+'%'
+        // append_winrate_box(game_result_dic, game_kda_dic, winrate)
     }
 
-    function data_connector(game_index, target_player, player_puuid, response) {
+    function games_data_connector(game_index, target_player, player_puuid, response) {
         const game_result = (target_player.win) ? 'win':'loss';
         const game_mode = { 490: '빠른 대전', 450: 'ARAM', 440: '자유 랭크', 420: '솔로 랭크', 1830: '집중 포화'}
         const game_result_text = (target_player.win) ? '승리':'패배';
@@ -379,6 +398,23 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="champion_icon_box red_icon">
                 <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/champion/${player.championName}.png" alt="" id="champion_icon">
+            </div>
+        </div>
+        `
+    }
+
+    // win_rate 
+    function append_winrate_box(game_result_dic, game_kda_dic, winrate) {
+        document.querySelector('.winrate_top').innerHTML = `
+        <div class="rate_box">
+            <div class="top">
+                <p class="history">${game_result_dic['game_count']}전 ${game_result_dic['win']}승 ${game_result_dic['loss']}패</p>
+            </div>
+            <div class="bottom winrate_bottom">
+                <div class="donut" style="background: conic-gradient(#3F8BC9 0% ${winrate}, #828799 ${winrate} 100%);"><span class="center">${winrate}</span></div>
+            <div class="kda_history">
+                <p class="kda_rate">${game_kda_dic['kda'].toFixed(2)} KDA</p>
+                <p class="k_d_a_rate">${game_kda_dic['kill'].toFixed(1)} / ${game_kda_dic['death'].toFixed(1)} / ${game_kda_dic['assist'].toFixed(1)}</p>
             </div>
         </div>
         `

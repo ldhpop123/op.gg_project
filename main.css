@@ -395,7 +395,6 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background: conic-gradient(#3F8BC9 0% 45%, #828799 45% 100%);
 }
 .donut .center {
     width: 75%;
