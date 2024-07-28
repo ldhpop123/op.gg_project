@@ -173,8 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await axios.get(`https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${player_puuid}/top?count=4&api_key=${riot_API}`)
         console.log(response)
         const champion_dict = {266: "Aatrox", 103: "Ahri", 84: "Akali", 166: "Akshan", 12: "Alistar", 32: "Amumu", 34: "Anivia", 1: "Annie", 523: "Aphelios", 22: "Ashe", 136: "AurelionSol", 893: "Aurora", 268: "Azir", 432: "Bard", 200: "Belveth", 53: "Blitzcrank", 63: "Brand", 201: "Braum", 233: "Briar", 51: "Caitlyn", 164: "Camille", 69: "Cassiopeia", 31: "Chogath", 42: "Corki", 122: "Darius", 131: "Diana", 119: "Draven", 36: "DrMundo", 245: "Ekko", 60: "Elise", 28: "Evelynn", 81: "Ezreal", 9: "Fiddlesticks", 114: "Fiora", 105: "Fizz", 3: "Galio", 41: "Gangplank", 86: "Garen", 150: "Gnar", 79: "Gragas", 104: "Graves", 887: "Gwen", 120: "Hecarim", 74: "Heimerdinger", 910: "Hwei", 420: "Illaoi", 39: "Irelia", 427: "Ivern", 40: "Janna", 59: "JarvanIV", 24: "Jax", 126: "Jayce", 202: "Jhin", 222: "Jinx", 145: "Kaisa", 429: "Kalista", 43: "Karma", 30: "Karthus", 38: "Kassadin", 55: "Katarina", 10: "Kayle", 141: "Kayn", 85: "Kennen", 121: "Khazix", 203: "Kindred", 240: "Kled", 96: "KogMaw", 897: "KSante", 7: "Leblanc", 64: "LeeSin", 89: "Leona", 876: "Lillia", 127: "Lissandra", 236: "Lucian", 117: "Lulu", 99: "Lux", 54: "Malphite", 90: "Malzahar", 57: "Maokai", 11: "MasterYi", 902: "Milio", 21: "MissFortune", 62: "MonkeyKing", 82: "Mordekaiser", 25: "Morgana", 950: "Naafiri", 267: "Nami", 75: "Nasus", 111: "Nautilus", 518: "Neeko", 76: "Nidalee", 895: "Nilah", 56: "Nocturne", 20: "Nunu", 2: "Olaf", 61: "Orianna", 516: "Ornn", 80: "Pantheon", 78: "Poppy", 555: "Pyke", 246: "Qiyana", 133: "Quinn", 497: "Rakan", 33: "Rammus", 421: "RekSai", 526: "Rell", 888: "Renata", 58: "Renekton", 107: "Rengar", 92: "Riven", 68: "Rumble", 13: "Ryze", 360: "Samira", 113: "Sejuani", 235: "Senna", 147: "Seraphine", 875: "Sett", 35: "Shaco", 98: "Shen", 102: "Shyvana", 27: "Singed", 14: "Sion", 15: "Sivir", 72: "Skarner", 901: "Smolder", 37: "Sona", 16: "Soraka", 50: "Swain", 517: "Sylas", 134: "Syndra", 223: "TahmKench", 163: "Taliyah", 91: "Talon", 44: "Taric", 17: "Teemo", 412: "Thresh", 18: "Tristana", 48: "Trundle", 23: "Tryndamere", 4: "TwistedFate", 29: "Twitch", 77: "Udyr", 6: "Urgot", 110: "Varus", 67: "Vayne", 45: "Veigar", 161: "Velkoz", 711: "Vex", 254: "Vi", 234: "Viego", 112: "Viktor", 8: "Vladimir", 106: "Volibear", 19: "Warwick", 498: "Xayah", 101: "Xerath", 5: "XinZhao", 157: "Yasuo", 777: "Yone", 83: "Yorick", 350: "Yuumi", 154: "Zac", 238: "Zed", 221: "Zeri", 115: "Ziggs", 26: "Zilean", 142: "Zoe", 143: "Zyra"}
+        const champion_dict_ko = {266: "아트록스", 103: "아리", 84: "아칼리", 166: "아크샨", 12: "알리스타", 32: "아무무", 34: "애니비아", 1: "애니", 523: "아펠리오스", 22: "애쉬", 136: "아우렐리온솔", 893: "오로라", 268: "아지르", 432: "바드", 200: "벨베스", 53: "블리츠크랭크", 63: "브랜드", 201: "브라움", 233: "브라이어", 51: "케이틀린", 164: "카밀", 69: "카시오페아", 31: "초가스", 42: "코르키", 122: "다리우스", 131: "다이애나", 119: "드레이븐", 36: "문도 박사", 245: "에코", 60: "엘리스", 28: "이블린", 81: "이즈리얼", 9: "피들스틱", 114: "피오라", 105: "피즈", 3: "갈리오", 41: "갱플랭크", 86: "가렌", 150: "나르", 79: "그라가스", 104: "그레이브즈", 887: "그웬", 120: "헤카림", 74: "하이머딩거", 910: "훼이", 420: "일라오이", 39: "이렐리아", 427: "아이번", 40: "잔나", 59: "자르반 4세", 24: "잭스", 126: "제이스", 202: "진", 222: "징크스", 145: "카이사", 429: "칼리스타", 43: "카르마", 30: "카서스", 38: "카사딘", 55: "카타리나", 10: "케일", 141: "케인", 85: "케넨", 121: "카직스", 203: "킨드레드", 240: "클레드", 96: "코그모", 897: "크산테", 7: "르블랑", 64: "리 신", 89: "레오나", 876: "릴리아", 127: "리산드라", 236: "루시안", 117: "룰루", 99: "럭스", 54: "말파이트", 90: "말자하", 57: "마오카이", 11: "마스터 이", 902: "밀리오", 21: "미스 포츈", 62: "오공", 82: "모데카이저", 25: "모르가나", 950: "나아피리", 267: "나미", 75: "나서스", 111: "노틸러스", 518: "니코", 76: "니달리", 895: "닐라", 56: "녹턴", 20: "누누", 2: "올라프", 61: "오리아나", 516: "오른", 80: "판테온", 78: "뽀삐", 555: "파이크", 246: "키아나", 133: "퀸", 497: "라칸", 33: "람머스", 421: "렉사이", 526: "렐", 888: "레나타 글라스크", 58: "레넥톤", 107: "렝가", 92: "리븐", 68: "럼블", 13: "라이즈", 360: "사미라", 113: "세주아니", 235: "세나", 147: "세라핀", 875: "세트", 35: "샤코", 98: "쉔", 102: "쉬바나", 27: "신지드", 14: "사이온", 15: "시비르", 72: "스카너", 901: "스몰더", 37: "소나", 16: "소라카", 50: "스웨인", 517: "사일러스", 134: "신드라", 223: "탐 켄치", 163: "탈리야", 91: "탈론", 44: "타릭", 17: "티모", 412: "쓰레쉬", 18: "트리스타나", 48: "트런들", 23: "트린다미어", 4: "트위스티드 페이트", 29: "트위치", 77: "우디르", 6: "우르곳", 110: "바루스", 67: "베인", 45: "베이가", 161: "벨코즈", 711: "벡스", 254: "바이", 234: "비에고", 112: "빅토르", 8: "블라디미르", 106: "볼리베어", 19: "워윅", 498: "자야", 101: "제라스", 5: "신 짜오", 157: "야스오", 777: "요네", 83: "요릭", 350: "유미", 154: "자크", 238: "제드", 221: "제리", 115: "직스", 26: "질리언", 142: "조이", 143: "자이라"}
 
-        append_champion_mastery(response.data, champion_dict)
+        append_champion_mastery(response.data, champion_dict, champion_dict_ko)
     }
 
     // match_ids_api
@@ -194,7 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const game_result_dic = {'game_count' : 0, 'win': 0, 'loss': 0 }
         const game_kda_dic = { 'kill': 0, 'death': 0, 'assist': 0 }
 
-        const game_line_dic = { 'game_count' : 0, 't': {'win': 0, 'loss': 0}, 'j': {'win': 0, 'loss': 0}, 'm': {'win': 0, 'loss': 0}, 'a': {'win': 0, 'loss': 0}, 's': {'win': 0, 'loss': 0},}
+        const game_line_dic = {'game_count' : 0, 'TOP': {'win': 0, 'loss': 0}, 'JUNGLE': {'win': 0, 'loss': 0}, 'MIDDLE': {'win': 0, 'loss': 0}, 'BOTTOM': {'win': 0, 'loss': 0}, 'UTILITY': {'win': 0, 'loss': 0}, 'Invalid': {'win': 0, 'loss':0}}
+
+        const game_most_dic = {}
 
         for (let i = 0; i < match_ids.length; i++) {
             const response = await axios.get(`https://${main_server}.api.riotgames.com/lol/match/v5/matches/${match_ids[i]}?api_key=${riot_API}`)
@@ -208,21 +211,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             game_result_dic['game_count'] += 1;
+            game_line_dic['game_count'] += 1;
             target_player.win ? game_result_dic['win'] += 1 : game_result_dic['loss'] += 1
 
             game_kda_dic['kill'] += (target_player.kills)/match_ids.length
             game_kda_dic['death'] += (target_player.deaths)/match_ids.length
             game_kda_dic['assist'] += (target_player.assists)/match_ids.length
 
+            if (game_most_dic[target_player.championName]) {
+                game_most_dic[target_player.championName][target_player.win ? 'win' : 'loss'] += 1
+                game_most_dic[target_player.championName]['kill'] += target_player.challenges.kills
+                game_most_dic[target_player.championName]['death'] += target_player.challenges.deaths
+                game_most_dic[target_player.championName]['assist'] += target_player.challenges.assists
+            } else {
+                game_most_dic[target_player.championName] = {'win':0, 'loss':0, 'kill':0, 'death':0, 'assist':0}
+                game_most_dic[target_player.championName][target_player.win ? 'win' : 'loss'] += 1
+                game_most_dic[target_player.championName]['kill'] += target_player.challenges.kills
+                game_most_dic[target_player.championName]['death'] += target_player.challenges.deaths
+                game_most_dic[target_player.championName]['assist'] += target_player.challenges.assists
+            }
+
+            game_line_dic[target_player.individualPosition][target_player.win ? 'win' : 'loss'] += 1
+
             games_data_connector(game_index, target_player, player_puuid, response.data.info)
             console.log(game_result_dic, game_kda_dic, match_ids.length)
-            const winrate = ((100/game_result_dic['game_count'])*game_result_dic['win']).toFixed(0)+'%'
-            append_winrate_box(game_result_dic, game_kda_dic, winrate)
         }
+        console.log(game_most_dic)
 
-        // console.log(game_result_dic, game_kda_dic, match_ids.length)
-        // const winrate = ((100/game_result_dic['game_count'])*game_result_dic['win']).toFixed(0)+'%'
-        // append_winrate_box(game_result_dic, game_kda_dic, winrate)
+        const winrate = ((100/game_result_dic['game_count'])*game_result_dic['win']).toFixed(0)+'%'
+        append_winrate_box(game_result_dic, game_kda_dic, winrate)
+
+        append_line_box(game_line_dic)
+
+        let entries = Object.entries(game_most_dic);
+        entries.sort((a, b) => (b[1].loss + b[1].win) - (a[1].loss + a[1].win));
+        let sortedgame_most_dic = Object.fromEntries(entries)
     }
 
     function games_data_connector(game_index, target_player, player_puuid, response) {
@@ -430,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     }
 
-    function append_champion_mastery(response, champion_dict) {
+    function append_champion_mastery(response, champion_dict, champion_dict_ko) {
         document.querySelector('#main_left').innerHTML += `
         <div class="champion_mastery_box">
             <p class="header_text">숙련도</p>
@@ -447,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <img src="https://s-lol-web.op.gg/static/images/mastery/mastery-${ (11 > response[i].championLevel) ? response[i].championLevel : 10 }.png" alt="" id="mastery_icon">
                 <p class="mastery_level">${response[i].championLevel}</p>
-                <p class="name">${champion_dict[response[i].championId]}</p>
+                <p class="name">${champion_dict_ko[response[i].championId]}</p>
                 <div class="dlvider"></div>
                 <p class="point">${(response[i].championPoints).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                 <p class="point">포인트</p>
@@ -456,7 +479,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function append_line_box() {
+    function line_text1(game_line_dic, line) {
+        if (game_line_dic[line]['win']+game_line_dic[line]['loss'] == 0) {
+            return '0.0'
+        } else {
+            return ((100/game_line_dic['game_count'])*(game_line_dic[line]['win']+game_line_dic[line]['loss'])).toFixed(1)
+        }
+    }
+
+    function line_text2(game_line_dic, line) {
+        if (game_line_dic[line]['win']+game_line_dic[line]['loss'] == 0) {
+            return '0.0'
+        } else {
+            return ((100/(game_line_dic[line]['win']+game_line_dic[line]['loss']))*game_line_dic[line]['win']).toFixed(1)
+        }
+    }
+
+    function append_line_box(game_line_dic) {
+        game_line_dic['game_count'] -= (game_line_dic['Invalid']['win'] + game_line_dic['Invalid']['loss'])
+
         document.querySelector('#main_left').innerHTML += `
         <div class="line_box">
             <div class="line_info_first line_info">
@@ -467,37 +508,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <div class="line_info">
                 <img src="https://s-lol-web.op.gg/images/icon/icon-position-top.svg?v=1721451321478" alt="">
-                <p>0%</p>
-                <p>0%</p>
-                <p>0</p>
+                <p>${line_text1(game_line_dic, 'TOP')}%</p>
+                <p>${line_text2(game_line_dic, 'TOP')}%</p>
+                <p>${game_line_dic['TOP']['win']+game_line_dic['TOP']['loss']}</p>
             </div>
 
             <div class="line_info">
                 <img src="https://s-lol-web.op.gg/images/icon/icon-position-jungle.svg?v=1721451321478" alt="">
-                <p>0%</p>
-                <p>0%</p>
-                <p>0</p>
+                <p>${line_text1(game_line_dic, 'JUNGLE')}%</p>
+                <p>${line_text2(game_line_dic, 'JUNGLE')}%</p>
+                <p>${game_line_dic['JUNGLE']['win']+game_line_dic['JUNGLE']['loss']}</p>
             </div>
 
             <div class="line_info">
                 <img src="https://s-lol-web.op.gg/images/icon/icon-position-mid.svg?v=1721451321478" alt="">
-                <p>0%</p>
-                <p>0%</p>
-                <p>0</p>
+                <p>${line_text1(game_line_dic, 'MIDDLE')}%</p>
+                <p>${line_text2(game_line_dic, 'MIDDLE')}%</p>
+                <p>${game_line_dic['MIDDLE']['win']+game_line_dic['MIDDLE']['loss']}</p>
             </div>
 
             <div class="line_info">
                 <img src="https://s-lol-web.op.gg/images/icon/icon-position-adc.svg?v=1721451321478" alt="">
-                <p>0%</p>
-                <p>0%</p>
-                <p>0</p>
+                <p>${line_text1(game_line_dic, 'BOTTOM')}%</p>
+                <p>${line_text2(game_line_dic, 'BOTTOM')}%</p>
+                <p>${game_line_dic['BOTTOM']['win']+game_line_dic['BOTTOM']['loss']}</p>
             </div>
 
             <div class="line_info">
                 <img src="https://s-lol-web.op.gg/images/icon/icon-position-support.svg?v=1721451321478" alt="">
-                <p>0%</p>
-                <p>0%</p>
-                <p>0</p>
+                <p>${line_text1(game_line_dic, 'UTILITY')}%</p>
+                <p>${line_text2(game_line_dic, 'UTILITY')}%</p>
+                <p>${game_line_dic['UTILITY']['win']+game_line_dic['UTILITY']['loss']}</p>
             </div>
         </div>
         `
