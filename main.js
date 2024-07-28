@@ -10,8 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --functions--
     function search() {
-        document.querySelector('.games').innerHTML = ''
+        document.querySelector('#games').innerHTML = ''
         document.querySelector('#main_left').innerHTML = ''
+        document.querySelector('#main_rigth').innerHTML = ''
 
         if (document.querySelector('.selected').textContent == '전체') {
             search_type = ``
@@ -36,13 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
         let target_days = ((date - gameCreation)/ 86400000)
         console.log(target_days)
 
-        if (target_days < 1) {
-            target_days = `${(target_days*10).toFixed(0)}시간 전`
-        } else if (target_days.toFixed(0) == 1) {
+        if (((date - gameCreation)/ 1000) < 60) {
+            target_days = `${((date - gameCreation)/ 1000).toFixed(0)}초 전`
+        } else if (((date - gameCreation)/ 60000) < 60) {
+            target_days = `${((date - gameCreation)/ 60000).toFixed(0)}분 전`
+        } else if (((date - gameCreation)/ 360000) < 24) {
+            target_days = `${((date - gameCreation)/ 3600000).toFixed(0)}시간 전`
+        } else if (((date - gameCreation)/ 86400000).toFixed(0) == 1) {
             target_days = '하루 전'
-        } else if (target_days.toFixed(0) < 31) {
-            target_days = `${target_days.toFixed(0)}일 전`
-        } else if (target_days.toFixed(0) >= 31) {
+        } else if (((date - gameCreation)/ 86400000) <= 30) {
+            target_days = `${((date - gameCreation)/ 86400000).toFixed(0)}일 전`
+        } else if (((date - gameCreation)/ 86400000) <= 61) {
+            target_days = '한달 전'
+        } else {
             target_days = '오래 전'
         }
 
@@ -223,15 +230,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (game_most_dic[target_player.championName]) {
                 game_most_dic[target_player.championName][target_player.win ? 'win' : 'loss'] += 1
-                game_most_dic[target_player.championName]['kill'] += target_player.challenges.kills
-                game_most_dic[target_player.championName]['death'] += target_player.challenges.deaths
-                game_most_dic[target_player.championName]['assist'] += target_player.challenges.assists
+                game_most_dic[target_player.championName]['kill'] += target_player.kills
+                game_most_dic[target_player.championName]['death'] += target_player.deaths
+                game_most_dic[target_player.championName]['assist'] += target_player.assists
             } else {
-                game_most_dic[target_player.championName] = {'win':0, 'loss':0, 'kill':0, 'death':0, 'assist':0}
-                game_most_dic[target_player.championName][target_player.win ? 'win' : 'loss'] += 1
-                game_most_dic[target_player.championName]['kill'] += target_player.challenges.kills
-                game_most_dic[target_player.championName]['death'] += target_player.challenges.deaths
-                game_most_dic[target_player.championName]['assist'] += target_player.challenges.assists
+                game_most_dic[target_player.championName] = {'win':0, 'loss':0, 'kill':0, 'death':0, 'assist':0, 'name':target_player.championName}
+                game_most_dic[target_player.championName][target_player.win ? 'win' : 'loss'] = 1
+                game_most_dic[target_player.championName]['kill'] = target_player.kills
+                game_most_dic[target_player.championName]['death'] = target_player.deaths
+                game_most_dic[target_player.championName]['assist'] = target_player.assists
             }
 
             game_line_dic[target_player.individualPosition][target_player.win ? 'win' : 'loss'] += 1
@@ -239,7 +246,6 @@ document.addEventListener('DOMContentLoaded', () => {
             games_data_connector(game_index, target_player, player_puuid, response.data.info)
             console.log(game_result_dic, game_kda_dic, match_ids.length)
         }
-        console.log(game_most_dic)
 
         const winrate = ((100/game_result_dic['game_count'])*game_result_dic['win']).toFixed(0)+'%'
         append_winrate_box(game_result_dic, game_kda_dic, winrate)
@@ -249,6 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let entries = Object.entries(game_most_dic);
         entries.sort((a, b) => (b[1].loss + b[1].win) - (a[1].loss + a[1].win));
         let sortedgame_most_dic = Object.fromEntries(entries)
+        let key = Object.keys(sortedgame_most_dic);
+        append_most_champion(key, sortedgame_most_dic)
     }
 
     function games_data_connector(game_index, target_player, player_puuid, response) {
@@ -304,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function append_game_div(game_result, game_index) {
-        document.querySelector('.games').innerHTML += `
+        document.querySelector('#games').innerHTML += `
         <div class="game">
             <div class="flex ${game_result}_game" id="game_${game_index}">
             </div>
@@ -441,19 +449,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // win_rate 
     function append_winrate_box(game_result_dic, game_kda_dic, winrate) {
-        document.querySelector('.winrate_top').innerHTML = `
-        <div class="rate_box">
-            <div class="top">
-                <p class="history">${game_result_dic['game_count']}전 ${game_result_dic['win']}승 ${game_result_dic['loss']}패</p>
-            </div>
-            <div class="bottom winrate_bottom">
-                <div class="donut" style="background: conic-gradient(#3F8BC9 0% ${winrate}, #828799 ${winrate} 100%);"><span class="center">${winrate}</span></div>
-            <div class="kda_history">
-                <p class="kda_rate">${((game_kda_dic['kill']+game_kda_dic['assist'])/game_kda_dic['death'].toFixed(1)).toFixed(2)} KDA</p>
-                <p class="k_d_a_rate">${game_kda_dic['kill'].toFixed(1)} / ${game_kda_dic['death'].toFixed(1)} / ${game_kda_dic['assist'].toFixed(1)}</p>
+        document.querySelector('#main_rigth').innerHTML += `
+        <div class="winrate">
+            <div class="rate_box">
+                <div class="top">
+                    <p class="history">${game_result_dic['game_count']}전 ${game_result_dic['win']}승 ${game_result_dic['loss']}패</p>
+                </div>
+                <div class="bottom winrate_bottom">
+                    <div class="donut" style="background: conic-gradient(#3F8BC9 0% ${winrate}, #828799 ${winrate} 100%);"><span class="center">${winrate}</span></div>
+                <div class="kda_history">
+                    <p class="kda_rate">${((game_kda_dic['kill']+game_kda_dic['assist'])/game_kda_dic['death'].toFixed(1)).toFixed(2)} KDA</p>
+                    <p class="k_d_a_rate">${game_kda_dic['kill'].toFixed(1)} / ${game_kda_dic['death'].toFixed(1)} / ${game_kda_dic['assist'].toFixed(1)}</p>
+                </div>
             </div>
         </div>
         `
+    }
+
+    function append_most_champion(key, sortedgame_most_dic) {
+        document.querySelector('.winrate').innerHTML += `
+        <div class="most_champion_box">
+            <p>모스트 3 챔피언</p>
+            <div class="most_champions">
+            </div>
+        </div>
+        `
+
+        for(let i = 0; i<(sortedgame_most_dic.length < 3 ? sortedgame_most_dic.length:3); i++) {
+            game_count = (sortedgame_most_dic[key[i]]['win']+sortedgame_most_dic[key[i]]['loss'])
+            kda = (((sortedgame_most_dic[key[i]]['kill']/game_count)+(sortedgame_most_dic[key[i]]['assist']/game_count))/(sortedgame_most_dic[key[i]]['death']/game_count)).toFixed(2)
+            winrate = ((100/game_count)*sortedgame_most_dic[key[i]]['win']).toFixed(1)
+
+            if (winrate > 50){
+                winrate_css = 'most_blue'
+            } else if (winrate < 50) {
+                winrate_css = 'most_red'
+            } else {
+                winrate_css = ''
+            }
+
+            document.querySelector('.most_champions').innerHTML += `
+            <div class="most_champion">
+                <div class="champion_icon_box">
+                    <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/champion/${sortedgame_most_dic[key[i]]['name']}.png" alt="">
+                </div>
+                <div class="most_info">
+                    <p class="most_winrate ${winrate_css}">${winrate}%</p>
+                    <p>${sortedgame_most_dic[key[i]]['win']}승 ${sortedgame_most_dic[key[i]]['loss']}패</p>
+                    <p>${kda} KDA</p>
+                </div>
+            </div>
+            `
+        }
     }
 
     function append_champion_mastery(response, champion_dict, champion_dict_ko) {
