@@ -349,6 +349,120 @@ body {
     margin: 10px 20px 0 0;
 }
 
+.left .champion_mastery_box {
+    width: 380px;
+    border: 1px solid rgb(32 42 72);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0 0 16px 0;
+}
+
+.champion_mastery_box > .header_text {
+    padding: 8px 0 16px 0;
+    color: #c1c5ca;
+    border-bottom: 1px solid rgb(79 87 112);
+    font-weight: 700;
+}
+
+.champion_mastery_box > .champions {
+    display: flex;
+    justify-content: space-around;
+    padding: 16px 0 0 0;
+}
+
+.champions > .champion {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.champions .champion_icon_box {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 4px 0;
+}
+
+.champion_icon_box > img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+}
+
+.champion > #mastery_icon {
+    width: 40px;
+}
+
+.champion > .mastery_level {
+    color: #dadfe7;
+    font-size: 12px;
+    background-color: #353a47;
+    padding: 0 8px;
+    border-radius: 8px;
+    position: relative;
+    bottom: 6px;
+    margin: 0 0 4px 0;
+}
+
+.champion > .name {
+    color: #dadfe7;
+    font-weight: 400;
+}
+
+.champion > .dlvider {
+    width: 40px; height: 1px;
+    background-color: #828799;
+    margin: 8px 0;
+}
+
+.champion > .point {
+    color: #828799;
+    margin: 0 0 2px 0;
+    font-size: 12px;
+}
+
+.left .line_box {
+    width: 380px;
+    padding: 16px 0;
+    display: flex;
+    border-bottom: 1px solid rgb(29 32 40) ;
+}
+
+.line_box .line_info {
+    width: 120px; height: 100%;
+
+    text-align: center;
+    margin: 0 0 20px;
+}
+
+.line_info > p {
+    width: 100%;
+    color: rgb(130, 135, 153);
+    margin: 0 0 4px 0;
+    font-weight: 400;
+}
+
+.line_info > img {
+    width: 30px; height: 30px;
+}
+
+.line_box .line_info_first {
+    padding: 34px 0 0 0;
+}
+
+.line_info_first > p {
+    color: #dadfe7;
+    font-size: 14px;
+    margin: 2px 0 6px 0;
+}
+
+
 /* main right*/
 
 .main_body > .right {

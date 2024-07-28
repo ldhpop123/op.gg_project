@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         games_value = {}
 
         const game_result_dic = {'game_count' : 0, 'win': 0, 'loss': 0 }
-        const game_kda_dic = { 'kda': 0, 'kill': 0, 'death': 0, 'assist': 0 }
+        const game_kda_dic = { 'kill': 0, 'death': 0, 'assist': 0 }
 
         for (let i = 0; i < match_ids.length; i++) {
             const response = await axios.get(`https://${main_server}.api.riotgames.com/lol/match/v5/matches/${match_ids[i]}?api_key=${riot_API}`)
@@ -199,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
             game_result_dic['game_count'] += 1;
             target_player.win ? game_result_dic['win'] += 1 : game_result_dic['loss'] += 1
 
-            game_kda_dic['kda'] += (target_player.challenges.kda)/match_ids.length
             game_kda_dic['kill'] += (target_player.kills)/match_ids.length
             game_kda_dic['death'] += (target_player.deaths)/match_ids.length
             game_kda_dic['assist'] += (target_player.assists)/match_ids.length
@@ -413,11 +412,15 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="bottom winrate_bottom">
                 <div class="donut" style="background: conic-gradient(#3F8BC9 0% ${winrate}, #828799 ${winrate} 100%);"><span class="center">${winrate}</span></div>
             <div class="kda_history">
-                <p class="kda_rate">${game_kda_dic['kda'].toFixed(2)} KDA</p>
+                <p class="kda_rate">${((game_kda_dic['kill']+game_kda_dic['assist'])/game_kda_dic['death'].toFixed(1)).toFixed(2)} KDA</p>
                 <p class="k_d_a_rate">${game_kda_dic['kill'].toFixed(1)} / ${game_kda_dic['death'].toFixed(1)} / ${game_kda_dic['assist'].toFixed(1)}</p>
             </div>
         </div>
         `
+    }
+
+    function append_champion_mastery() {
+        
     }
 
     function player_10(target_game) {
