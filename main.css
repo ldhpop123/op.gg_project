@@ -471,7 +471,7 @@ body {
 }
 
 .right > .winrate {
-    width: 100%; height: 200px;
+    width: 100%;
     background-color: rgb(31, 35, 49);
     border-radius: 8px;
     margin: 0 0 10px 0 ;

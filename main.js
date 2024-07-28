@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --functions--
     function search() {
         document.querySelector('.games').innerHTML = ''
+        document.querySelector('#main_left').innerHTML = ''
 
         if (document.querySelector('.selected').textContent == '전체') {
             search_type = ``
@@ -32,14 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function game_time(gameCreation, gameDuration) {
         const date = new Date()
 
-        let target_days = ((date - gameCreation)/ 86400000).toFixed(0)
+        let target_days = ((date - gameCreation)/ 86400000)
         console.log(target_days)
 
-        if (target_days == 1) {
+        if (target_days < 1) {
+            target_days = `${(target_days*10).toFixed(0)}시간 전`
+        } else if (target_days.toFixed(0) == 1) {
             target_days = '하루 전'
-        } else if (target_days < 31) {
-            target_days = `${target_days}일 전`
-        } else if (target_days >= 31) {
+        } else if (target_days.toFixed(0) < 31) {
+            target_days = `${target_days.toFixed(0)}일 전`
+        } else if (target_days.toFixed(0) >= 31) {
             target_days = '오래 전'
         }
 
@@ -655,5 +658,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             search()
         }
+    })
+
+    //전적갱신
+    document.querySelector('#reload_btn').addEventListener('click', () => {
+        search()
     })
 });
