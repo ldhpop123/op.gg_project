@@ -606,6 +606,7 @@ body {
 
 .right > .games {
     width: 100%;
+    margin: 0 0 100px 0;
 }
 
 .games .flex {
@@ -948,4 +949,3 @@ body {
 .games .loss_info_btn {
     background-color: #e346464d;
 }
-
