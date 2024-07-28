@@ -168,6 +168,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return rank_li
     }
 
+    // mastery_api
+    async function mastery_api(player_puuid) {
+        const response = await axios.get(`https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${player_puuid}/top?count=4&api_key=${riot_API}`)
+        console.log(response)
+        const champion_dict = {266: "Aatrox", 103: "Ahri", 84: "Akali", 166: "Akshan", 12: "Alistar", 32: "Amumu", 34: "Anivia", 1: "Annie", 523: "Aphelios", 22: "Ashe", 136: "AurelionSol", 893: "Aurora", 268: "Azir", 432: "Bard", 200: "Belveth", 53: "Blitzcrank", 63: "Brand", 201: "Braum", 233: "Briar", 51: "Caitlyn", 164: "Camille", 69: "Cassiopeia", 31: "Chogath", 42: "Corki", 122: "Darius", 131: "Diana", 119: "Draven", 36: "DrMundo", 245: "Ekko", 60: "Elise", 28: "Evelynn", 81: "Ezreal", 9: "Fiddlesticks", 114: "Fiora", 105: "Fizz", 3: "Galio", 41: "Gangplank", 86: "Garen", 150: "Gnar", 79: "Gragas", 104: "Graves", 887: "Gwen", 120: "Hecarim", 74: "Heimerdinger", 910: "Hwei", 420: "Illaoi", 39: "Irelia", 427: "Ivern", 40: "Janna", 59: "JarvanIV", 24: "Jax", 126: "Jayce", 202: "Jhin", 222: "Jinx", 145: "Kaisa", 429: "Kalista", 43: "Karma", 30: "Karthus", 38: "Kassadin", 55: "Katarina", 10: "Kayle", 141: "Kayn", 85: "Kennen", 121: "Khazix", 203: "Kindred", 240: "Kled", 96: "KogMaw", 897: "KSante", 7: "Leblanc", 64: "LeeSin", 89: "Leona", 876: "Lillia", 127: "Lissandra", 236: "Lucian", 117: "Lulu", 99: "Lux", 54: "Malphite", 90: "Malzahar", 57: "Maokai", 11: "MasterYi", 902: "Milio", 21: "MissFortune", 62: "MonkeyKing", 82: "Mordekaiser", 25: "Morgana", 950: "Naafiri", 267: "Nami", 75: "Nasus", 111: "Nautilus", 518: "Neeko", 76: "Nidalee", 895: "Nilah", 56: "Nocturne", 20: "Nunu", 2: "Olaf", 61: "Orianna", 516: "Ornn", 80: "Pantheon", 78: "Poppy", 555: "Pyke", 246: "Qiyana", 133: "Quinn", 497: "Rakan", 33: "Rammus", 421: "RekSai", 526: "Rell", 888: "Renata", 58: "Renekton", 107: "Rengar", 92: "Riven", 68: "Rumble", 13: "Ryze", 360: "Samira", 113: "Sejuani", 235: "Senna", 147: "Seraphine", 875: "Sett", 35: "Shaco", 98: "Shen", 102: "Shyvana", 27: "Singed", 14: "Sion", 15: "Sivir", 72: "Skarner", 901: "Smolder", 37: "Sona", 16: "Soraka", 50: "Swain", 517: "Sylas", 134: "Syndra", 223: "TahmKench", 163: "Taliyah", 91: "Talon", 44: "Taric", 17: "Teemo", 412: "Thresh", 18: "Tristana", 48: "Trundle", 23: "Tryndamere", 4: "TwistedFate", 29: "Twitch", 77: "Udyr", 6: "Urgot", 110: "Varus", 67: "Vayne", 45: "Veigar", 161: "Velkoz", 711: "Vex", 254: "Vi", 234: "Viego", 112: "Viktor", 8: "Vladimir", 106: "Volibear", 19: "Warwick", 498: "Xayah", 101: "Xerath", 5: "XinZhao", 157: "Yasuo", 777: "Yone", 83: "Yorick", 350: "Yuumi", 154: "Zac", 238: "Zed", 221: "Zeri", 115: "Ziggs", 26: "Zilean", 142: "Zoe", 143: "Zyra"}
+
+        append_champion_mastery(response.data, champion_dict)
+    }
+
     // match_ids_api
     async function match_ids_api(main_server, player_puuid, search_type) {
         const response = await axios.get(`https://${main_server}.api.riotgames.com/lol/match/v5/matches/by-puuid/${player_puuid}/ids?${search_type}&start=0&count=20&api_key=${riot_API}`)
@@ -184,6 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const game_result_dic = {'game_count' : 0, 'win': 0, 'loss': 0 }
         const game_kda_dic = { 'kill': 0, 'death': 0, 'assist': 0 }
+
+        const game_line_dic = { 'game_count' : 0, 't': {'win': 0, 'loss': 0}, 'j': {'win': 0, 'loss': 0}, 'm': {'win': 0, 'loss': 0}, 'a': {'win': 0, 'loss': 0}, 's': {'win': 0, 'loss': 0},}
 
         for (let i = 0; i < match_ids.length; i++) {
             const response = await axios.get(`https://${main_server}.api.riotgames.com/lol/match/v5/matches/${match_ids[i]}?api_key=${riot_API}`)
@@ -419,8 +430,77 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     }
 
-    function append_champion_mastery() {
-        
+    function append_champion_mastery(response, champion_dict) {
+        document.querySelector('#main_left').innerHTML += `
+        <div class="champion_mastery_box">
+            <p class="header_text">숙련도</p>
+            <div class="champions">
+            </div>
+        </div>
+        `
+
+        for(let i = 0; i<response.length; i++) {
+            document.querySelector('.champions').innerHTML += `
+            <div class="champion">
+                <div class="champion_icon_box">
+                    <img src="https://opgg-static.akamaized.net/meta/images/lol/14.14.1/champion/${champion_dict[response[i].championId]}.png" alt="">
+                </div>
+                <img src="https://s-lol-web.op.gg/static/images/mastery/mastery-${ (11 > response[i].championLevel) ? response[i].championLevel : 10 }.png" alt="" id="mastery_icon">
+                <p class="mastery_level">${response[i].championLevel}</p>
+                <p class="name">${champion_dict[response[i].championId]}</p>
+                <div class="dlvider"></div>
+                <p class="point">${(response[i].championPoints).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                <p class="point">포인트</p>
+            </div>
+            `
+        }
+    }
+
+    function append_line_box() {
+        document.querySelector('#main_left').innerHTML += `
+        <div class="line_box">
+            <div class="line_info_first line_info">
+                <p>비율</p>
+                <p>승률</p>
+                <p>게임수</p>
+            </div>
+
+            <div class="line_info">
+                <img src="https://s-lol-web.op.gg/images/icon/icon-position-top.svg?v=1721451321478" alt="">
+                <p>0%</p>
+                <p>0%</p>
+                <p>0</p>
+            </div>
+
+            <div class="line_info">
+                <img src="https://s-lol-web.op.gg/images/icon/icon-position-jungle.svg?v=1721451321478" alt="">
+                <p>0%</p>
+                <p>0%</p>
+                <p>0</p>
+            </div>
+
+            <div class="line_info">
+                <img src="https://s-lol-web.op.gg/images/icon/icon-position-mid.svg?v=1721451321478" alt="">
+                <p>0%</p>
+                <p>0%</p>
+                <p>0</p>
+            </div>
+
+            <div class="line_info">
+                <img src="https://s-lol-web.op.gg/images/icon/icon-position-adc.svg?v=1721451321478" alt="">
+                <p>0%</p>
+                <p>0%</p>
+                <p>0</p>
+            </div>
+
+            <div class="line_info">
+                <img src="https://s-lol-web.op.gg/images/icon/icon-position-support.svg?v=1721451321478" alt="">
+                <p>0%</p>
+                <p>0%</p>
+                <p>0</p>
+            </div>
+        </div>
+        `
     }
 
     function player_10(target_game) {
@@ -481,8 +561,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // match_ids_api
         const match_ids = await match_ids_api(main_server, player_puuid, search_type);
 
+        //mastery
+        mastery_api(player_puuid)
+
         // match_info
         match_info_api(main_server, match_ids, player_puuid)
+
     }
 
     // -search_bar-

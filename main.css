@@ -524,16 +524,13 @@ body {
     font-weight: 700;
 }
 
-.rate_box .kda_history {
-
-}
-
 .kda_history > .kda_rate {
     width: 120px;
     color: #dadfe7;
     font-size: 16px;
     font-weight: 700;
     text-align: center;
+    margin: 4px 0 0 0;
 }
 
 .kda_history > .k_d_a_rate {
