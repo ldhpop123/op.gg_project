@@ -459,10 +459,86 @@ body {
 
 .line_info_first > p {
     color: #dadfe7;
-    font-size: 14px;
+    font-size: 16px;
     margin: 2px 0 6px 0;
 }
 
+.left .friend_box {
+    width: 380px;
+    margin: 0 0 20px 0;
+}
+
+.friend_box > P {
+    color: #828799;
+    font-size: 14px;
+    padding: 0 8px;
+    margin: 0 0 20px 0;
+}
+
+.friend_box .friend_info {
+    display: flex;
+    padding: 0 8px;
+    justify-content: space-around;
+    margin: 0 0 8px 0;
+}
+
+.friend_info > p {
+    color: #828799;
+    font-size: 12px;
+}
+
+.friend_info > .friend_info_first {
+    width: 170px;
+}
+
+.friends > .friend {
+    display: flex;
+    padding: 16px 8px;
+    justify-content: space-around;
+}
+
+.friend > p {
+    color: #dadfe7;
+    font-size: 12px;
+    text-align: center;
+}
+
+.friend > p:nth-child(1) {
+    width: 170px;
+    text-align: left;
+    color: #dadfe7;
+    font-weight: 900;
+}
+
+.friend > p:nth-child(2) {
+    width: 24px;
+}
+
+.friend > p:nth-child(3) {
+    width: 36px;
+}
+
+.friend > p:nth-child(4) {
+    width: 55px;
+}
+
+.friends > div:nth-of-type(odd) {
+    background-color: rgb(23 27 47);
+}
+
+.friends > div:nth-of-type(even) {
+    background-color: rgb(18 21 37);
+}
+
+.friends> div:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.friends > div:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
 
 /* main right*/
 

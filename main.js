@@ -261,6 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let sortedgame_most_dic = Object.fromEntries(entries)
         let key = Object.keys(sortedgame_most_dic);
         append_most_champion(key, sortedgame_most_dic)
+
+        append_friend_box()
     }
 
     function games_data_connector(game_index, target_player, player_puuid, response) {
@@ -620,6 +622,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>${line_text1(game_line_dic, 'UTILITY')}%</p>
                 <p>${line_text2(game_line_dic, 'UTILITY')}%</p>
                 <p>${game_line_dic['UTILITY']['win']+game_line_dic['UTILITY']['loss']}</p>
+            </div>
+        </div>
+        `
+    }
+
+    function append_friend_box() {
+        document.querySelector('#main_left').innerHTML += `
+        <div class="friend_box">
+            <p>최근 20 게임 같이 플레이한 소환사들 (상대팀 포함)</p>
+            <div class="friend_info">
+                <p class="friend_info_first">소환사</p>
+                <p>내팀</p>
+                <p>상대팀</p>
+                <p>내팀 승률</p>
+            </div>
+            <div class="friends">
+                <div class="friend">
+                    <p>天下 第一#CN1</p>
+                    <p>4</p>
+                    <p>0</p>
+                    <p>75%</p>
+                </div>
+
+                <div class="friend">
+                    <p>天下 第一#CN1</p>
+                    <p>4</p>
+                    <p>0</p>
+                    <p>75%</p>
+                </div>
+
+                <div class="friend">
+                    <p>天下 第一#CN1</p>
+                    <p>4</p>
+                    <p>0</p>
+                    <p>75%</p>
+                </div>
             </div>
         </div>
         `
