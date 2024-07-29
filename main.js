@@ -1,4 +1,4 @@
-const riot_API = 'RGAPI-44b308e2-d046-445b-92ea-80438e6b334d';
+const riot_API = 'RGAPI-d5b9f694-475e-479c-ab9c-8491da79294e';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -10,25 +10,29 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --functions--
     function search() {
-        document.querySelector('#games').innerHTML = ''
-        document.querySelector('#main_left').innerHTML = ''
-        document.querySelector('#main_rigth').innerHTML = ''
+        if (document.querySelector('#game_name').value == '') {
+            alert('입력해주세요')
+        } else {
+            document.querySelector('#games').innerHTML = ''
+            document.querySelector('#main_left').innerHTML = ''
+            document.querySelector('#main_rigth').innerHTML = ''
 
-        if (document.querySelector('.selected').textContent == '전체') {
-            search_type = ``
-        } else if (document.querySelector('.selected').textContent == '일반') {
-            search_type = `type=normal`
-        } else if (document.querySelector('.selected').textContent == '랭크') {
-            search_type = `type=ranked`
+            if (document.querySelector('.selected').textContent == '전체') {
+                search_type = ``
+            } else if (document.querySelector('.selected').textContent == '일반') {
+                search_type = `type=normal`
+            } else if (document.querySelector('.selected').textContent == '랭크') {
+                search_type = `type=ranked`
+            }
+
+            console.log(player_name_tag.value)
+            const name_tag_li = player_name_tag.value.split('#')
+            console.log(name_tag_li)
+            const input_name = name_tag_li[0]
+            const input_tag = name_tag_li[1]
+
+            display_player_info(input_name, input_tag, search_type)
         }
-
-        console.log(player_name_tag.value)
-        const name_tag_li = player_name_tag.value.split('#')
-        console.log(name_tag_li)
-        const input_name = name_tag_li[0]
-        const input_tag = name_tag_li[1]
-
-        display_player_info(input_name, input_tag, search_type)
     }
 
     function game_time(gameCreation, gameDuration) {
@@ -53,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target_days = '오래 전'
         }
 
-        const game_minutes = (gameDuration / 60).toFixed(0)
+        const game_minutes = Math.floor(gameDuration / 60)
         const game_seconds = (gameDuration % 60)
 
         return { target_days, game_minutes, game_seconds }
@@ -272,8 +276,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         append_champion_info(game_index, spell_dic, target_player)
 
+        let max_dps = 0
+        const player_dps_dic = {}
+        for(let i = 0; i<response.participants.length; i++ ){
+            max_dps = response.participants[i].totalDamageDealtToChampions > max_dps ? response.participants[i].totalDamageDealtToChampions : max_dps
+            player_dps_dic[response.participants[i].puuid] = response.participants[i].totalDamageDealtToChampions
+        }
 
-        append_main_game_info(game_index)
+        if (target_player.teamId == 100) {
+            team_kill = 0
+            for(let i = 0; i<(response.participants.length > 5 ? 5 : response.participants.length); i++ ) {
+                team_kill += response.participants[i].kills
+            }
+        } else if (target_player.teamId == 200) {
+            team_kill = 0
+            for(let i = 5; i<response.participants.length; i++ ) {
+                team_kill += response.participants[i].kills
+            }
+        }
+
+        let dps_dic_entries = Object.entries(player_dps_dic);
+        dps_dic_entries.sort((a, b) => b[1] - a[1]);
+        console.log(dps_dic_entries)
+
+        for(i = 0; i<dps_dic_entries.length; i++) {
+            if (dps_dic_entries[i][0] == player_puuid) {
+                console.log(i)
+                dps_rank = i+1
+                break;
+            }
+        }
+
+        // console.log(dps_rank)
+
+        append_main_game_info(game_index, dps_rank, game_minutes, team_kill, response, target_player)
         if (target_player.doubleKills == 1) {
             document.querySelector(`#multi_kill_${game_index}`).innerHTML = `<p>${'더블 킬'}</p>`
         } else if (target_player.tripleKills == 1) {
@@ -285,11 +321,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         append_player_10(game_index)
-        let max_dps = 0
-        for(let i = 0; i<response.participants.length; i++ ){
-            max_dps = response.participants[i].totalDamageDealtToChampions > max_dps ? response.participants[i].totalDamageDealtToChampions : max_dps
-            console.log(max_dps)
-        }
 
         for(let i = 0; i < response.participants.length; i++){
             let player = response.participants[i]
@@ -392,13 +423,13 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     }
     
-    function append_main_game_info(game_index) {
+    function append_main_game_info(game_index, dps_rank, game_minutes, team_kill, response, target_player) {
         document.querySelector(`#game_${game_index}`).innerHTML += `
         <div class="main_game_info">
             <div class="game_score">
-                <p><span>딜량</span> 1등</p>
-                <p><span>분당</span> 7.9 CS</p>
-                <p><span>킬관여</span> 51%</p>
+                <p><span>딜량</span> ${dps_rank}등</p>
+                <p><span>분당</span> ${((target_player.totalMinionsKilled + target_player.totalEnemyJungleMinionsKilled + target_player.totalAllyJungleMinionsKilled)/game_minutes).toFixed(1)} CS</p>
+                <p><span>킬관여</span> ${((100/team_kill)*(target_player.kills+target_player.assists)).toFixed(0)} %</p>
             </div>
             <div class="multi_kill" id="multi_kill_${game_index}">
             </div>
@@ -688,12 +719,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // search_btn
     search_btn.addEventListener('click', () => {
-        if (player_name_tag.value != '') {
-            search()
-        } else {
-            console.log('입력해주세요');
-        }
+        search()
     });
+
+    document.addEventListener('keydown', (e) => {
+        if (document.querySelector('#game_name') && e.code == 'Enter') {
+            search()
+        }
+    })
 
     // game_mode_select_btn
     document.querySelector('.game_mode_select_box').addEventListener('click', (e) => {
@@ -709,6 +742,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //전적갱신
     document.querySelector('#reload_btn').addEventListener('click', () => {
+        document.querySelector('#game_name').value = document.querySelector('#player_name').textContent + document.querySelector('#player_tag').textContent
         search()
+    })
+
+    // input 초기화
+    document.querySelector('#game_name').addEventListener('click', () => {
+        document.querySelector('#game_name').value = ''
     })
 });
