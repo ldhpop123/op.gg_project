@@ -324,6 +324,7 @@ body {
     line-height: 24px;
     padding: 4px 8px 4px 8px;
     margin: 0 8px 0 0;
+    cursor: pointer;
 }
 
 .game_mode_select_box > .selected {
@@ -461,6 +462,7 @@ body {
     color: #dadfe7;
     font-size: 16px;
     margin: 2px 0 6px 0;
+    font-size: 14px;
 }
 
 .left .friend_box {
