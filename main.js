@@ -213,6 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const game_most_dic = {}
 
+        let frined_dic = {}
+
         for (let i = 0; i < match_ids.length; i++) {
             const response = await axios.get(`https://${main_server}.api.riotgames.com/lol/match/v5/matches/${match_ids[i]}?api_key=${riot_API}`)
             console.log(`game_${i}`, response.data)
@@ -222,6 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.data.info.participants[i].puuid == player_puuid) {
                     target_player = response.data.info.participants[i]
                 }
+            }
+
+            for(let i = 0; i<response.data.info.participants.length; i++) {
+                if (frined_dic[response.data.info.participants[i].puuid] == undefined) {
+                    frined_dic[response.data.info.participants[i].puuid] = {'ally': 0, 'enemy': 0, 'win':0, 'name':(response.data.info.participants[i].riotIdGameName+'#'+response.data.info.participants[i].riotIdTagline)}
+                }
+                frined_dic[response.data.info.participants[i].puuid][response.data.info.participants[i].teamId == target_player.teamId ? 'ally' : 'enemy'] += 1
+                frined_dic[response.data.info.participants[i].puuid]['win'] += ((response.data.info.participants[i].teamId == target_player.teamId) && target_player.win ? 1 : 0)
             }
 
             game_result_dic['game_count'] += 1;
@@ -244,7 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 game_most_dic[target_player.championName]['death'] = target_player.deaths
                 game_most_dic[target_player.championName]['assist'] = target_player.assists
             }
-
             game_line_dic[target_player.individualPosition][target_player.win ? 'win' : 'loss'] += 1
 
             games_data_connector(game_index, target_player, player_puuid, response.data.info)
@@ -262,7 +271,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let key = Object.keys(sortedgame_most_dic);
         append_most_champion(key, sortedgame_most_dic)
 
-        append_friend_box()
+        let frined_dic_entries = Object.entries(frined_dic);
+        frined_dic_entries.sort((a, b) => (b[1]['ally'] + b[1]['enemy'])  - (a[1]['ally'] + a[1]['enemy']));
+        delete frined_dic_entries[0];
+        console.log(frined_dic_entries)
+        append_friend_box(frined_dic_entries)
     }
 
     function games_data_connector(game_index, target_player, player_puuid, response) {
@@ -513,12 +526,12 @@ document.addEventListener('DOMContentLoaded', () => {
             kda = (((sortedgame_most_dic[key[i]]['kill']/game_count)+(sortedgame_most_dic[key[i]]['assist']/game_count))/(sortedgame_most_dic[key[i]]['death']/game_count)).toFixed(2)
             winrate = ((100/game_count)*sortedgame_most_dic[key[i]]['win']).toFixed(1)
 
-            if (winrate > 50){
+            if (winrate > 67){
                 winrate_css = 'most_blue'
-            } else if (winrate < 50) {
+            } else if (winrate < 33) {
                 winrate_css = 'most_red'
             } else {
-                winrate_css = ''
+                winrate_css = 'most_white'
             }
 
             document.querySelector('.most_champions').innerHTML += `
@@ -627,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     }
 
-    function append_friend_box() {
+    function append_friend_box(frined_dic_entries) {
         document.querySelector('#main_left').innerHTML += `
         <div class="friend_box">
             <p>최근 20 게임 같이 플레이한 소환사들 (상대팀 포함)</p>
@@ -637,30 +650,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>상대팀</p>
                 <p>내팀 승률</p>
             </div>
-            <div class="friends">
-                <div class="friend">
-                    <p>天下 第一#CN1</p>
-                    <p>4</p>
-                    <p>0</p>
-                    <p>75%</p>
-                </div>
-
-                <div class="friend">
-                    <p>天下 第一#CN1</p>
-                    <p>4</p>
-                    <p>0</p>
-                    <p>75%</p>
-                </div>
-
-                <div class="friend">
-                    <p>天下 第一#CN1</p>
-                    <p>4</p>
-                    <p>0</p>
-                    <p>75%</p>
-                </div>
+            <div class="friends" id="friends">
             </div>
         </div>
         `
+
+        for(let i = 1; i<frined_dic_entries.length; i++) {
+            console.log(frined_dic_entries[i][1]['ally'] + frined_dic_entries[i][1]['enemy'])
+            if (frined_dic_entries[i][1]['ally'] + frined_dic_entries[i][1]['enemy'] > 2 && frined_dic_entries[i][1]['ally'] > 1) {
+
+                document.querySelector('#friends').innerHTML += `
+                <div class="friend">
+                    <p>${frined_dic_entries[i][1]['name']}</p>
+                    <p>${frined_dic_entries[i][1]['ally']}</p>
+                    <p>${frined_dic_entries[i][1]['enemy']}</p>
+                    <p class="${((100/frined_dic_entries[i][1]['ally'])*frined_dic_entries[i][1]['win']).toFixed(0) > 66 ? 'green_font' : ''}">${((100/frined_dic_entries[i][1]['ally'])*frined_dic_entries[i][1]['win']).toFixed(0)}%</p>
+                </div>
+                `
+            }
+
+        }
     }
 
     function player_10(target_game) {

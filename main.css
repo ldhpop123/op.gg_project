@@ -503,6 +503,7 @@ body {
     color: #dadfe7;
     font-size: 12px;
     text-align: center;
+    font-weight: 700;
 }
 
 .friend > p:nth-child(1) {
@@ -522,6 +523,10 @@ body {
 
 .friend > p:nth-child(4) {
     width: 55px;
+}
+
+.friend > .green_font {
+    color: #00a676;
 }
 
 .friends > div:nth-of-type(odd) {
@@ -680,6 +685,10 @@ body {
     color: #e34646;
 }
 
+.most_champion .most_white {
+    color: #dadfe7;
+}
+
 /* games */
 
 .right > .games {
@@ -691,7 +700,13 @@ body {
     display: flex;
 }
 
-.games > .game {
+.games .top {
+    display: flex;
+    width: 700px;
+}
+
+.games .game {
+    width: 700px;
     display: flex;
 }
 
@@ -979,9 +994,13 @@ body {
     font-weight: 700;
 }
 
+.advanced_info {
+    width: 100%;
+}
+
 /* btn */
 
-.game > .advanced_info_btn {
+.game .advanced_info_btn {
     width: 32px; height: 120px;
     margin-top: 10px;
     display: flex;
