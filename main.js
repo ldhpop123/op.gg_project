@@ -40,21 +40,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let target_days = ((date - gameCreation)/ 86400000)
         console.log(target_days)
+        const elapsedTime = date - gameCreation;
 
-        if (((date - gameCreation)/ 1000) < 60) {
-            target_days = `${((date - gameCreation)/ 1000).toFixed(0)}초 전`
-        } else if (((date - gameCreation)/ 60000) < 60) {
-            target_days = `${((date - gameCreation)/ 60000).toFixed(0)}분 전`
-        } else if (((date - gameCreation)/ 360000) < 24) {
-            target_days = `${((date - gameCreation)/ 3600000).toFixed(0)}시간 전`
-        } else if (((date - gameCreation)/ 86400000).toFixed(0) == 1) {
-            target_days = '하루 전'
-        } else if (((date - gameCreation)/ 86400000) <= 30) {
-            target_days = `${((date - gameCreation)/ 86400000).toFixed(0)}일 전`
-        } else if (((date - gameCreation)/ 86400000) <= 61) {
-            target_days = '한달 전'
+        if (elapsedTime < 60000) { // less than 1 minute
+            target_days = `${(elapsedTime / 1000).toFixed(0)}초 전`;
+        } else if (elapsedTime < 3600000) { // less than 1 hour
+            target_days = `${(elapsedTime / 60000).toFixed(0)}분 전`;
+        } else if (elapsedTime < 86400000) { // less than 1 day
+            target_days = `${(elapsedTime / 3600000).toFixed(0)}시간 전`;
+        } else if (elapsedTime < 172800000) { // less than 2 days
+            target_days = '하루 전';
+        } else if (elapsedTime <= 2592000000) { // less than or equal to 30 days
+            target_days = `${(elapsedTime / 86400000).toFixed(0)}일 전`;
+        } else if (elapsedTime <= 5184000000) { // less than or equal to 61 days
+            target_days = '한달 전';
         } else {
-            target_days = '오래 전'
+            target_days = '오래 전';
         }
 
         const game_minutes = Math.floor(gameDuration / 60)
@@ -350,9 +351,9 @@ document.addEventListener('DOMContentLoaded', () => {
             dps_bar = `style="width:${(response.participants[i].totalDamageDealtToChampions / (max_dps/100)).toFixed(0)}%;"`
 
             if (i < 5) {
-                blue_5(game_index, player_name, bold, dps_bar, player)
-            } else {
                 red_5(game_index, player_name, bold, dps_bar, player)
+            } else {
+                blue_5(game_index, player_name, bold, dps_bar, player)
             }
         }
     }
@@ -360,10 +361,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function append_game_div(game_result, game_index) {
         document.querySelector('#games').innerHTML += `
         <div class="game">
-            <div class="flex ${game_result}_game" id="game_${game_index}">
-            </div>
-            <div class="advanced_info_btn ${game_result}_info_btn">
-                <p class="material-icons" id="advanced_expand">expand_less</p>
+            <div class="top">
+                <div class="flex ${game_result}_game" id="game_${game_index}">
+                </div>
+                <div class="advanced_info_btn ${game_result}_info_btn">
+                    <p class="material-icons" id="advanced_expand">expand_less</p>
+                </div>
             </div>
         </div>
         `
@@ -461,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     }
 
-    function blue_5(game_index, player_name, bold, dps_bar, player) {
+    function red_5(game_index, player_name, bold, dps_bar, player) {
         document.querySelector(`#blue_p5_${game_index}`).innerHTML += `
         <div class="player">
             <div class="champion_icon_box blue_icon">
@@ -477,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     }
 
-    function red_5(game_index, player_name, bold, dps_bar, player) {
+    function blue_5(game_index, player_name, bold, dps_bar, player) {
         document.querySelector(`#red_p5_${game_index}`).innerHTML += `
         <div class="player">
             <div class="player_10_name">

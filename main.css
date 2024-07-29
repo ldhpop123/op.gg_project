@@ -692,7 +692,7 @@ body {
 /* games */
 
 .right > .games {
-    width: 100%;
+    width: 700px;
     margin: 0 0 100px 0;
 }
 
@@ -706,8 +706,8 @@ body {
 }
 
 .games .game {
-    width: 700px;
     display: flex;
+    flex-direction: column;
 }
 
 .game .game_info {
@@ -1050,4 +1050,9 @@ body {
 
 .games .loss_info_btn {
     background-color: #e346464d;
+}
+
+.games .bottom {
+    display: flex;
+    width: 700px;
 }
