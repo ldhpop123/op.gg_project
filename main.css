@@ -702,7 +702,6 @@ body {
 
 .games .top {
     display: flex;
-    width: 700px;
 }
 
 .games .game {
@@ -1052,8 +1051,9 @@ body {
     background-color: #e346464d;
 }
 
-.games .bottom {
+/* .games .bottom {
     display: flex;
+    flex-direction: column;
     width: 700px;
     background-color: rgb(31 35 49);
 }
@@ -1071,6 +1071,7 @@ body {
 
 .team_score_box > div {
     display: flex;
+    align-items: center;
     margin: 0 8px;
 }
 
@@ -1083,8 +1084,8 @@ body {
     flex-direction: row-reverse;
 }
 
-.blue_score > div {
-    display: flex;
+.team_score_box > div > svg {
+    margin: 0 2px 0 0;
 }
 
 .red_score p {
@@ -1092,28 +1093,44 @@ body {
 }
 
 .bottom .total_bar_chart {
-    width: 270px;
+    width: 250px;
     display: flex;
     flex-direction: column;
+    margin: 0 10px;
 }
 
 .total_bar_chart > .total_kill_box {
     width: 100%; height: 16px;
-    margin: 0 8px 4px 0;
+    margin: 0 0 4px 0;
 }
+
 
 .total_bar_chart > .total_gold_box {
     width: 100%; height: 16px;
-    margin: 0 8px 0 0;
 }
 
 .total_bar_chart .bar {
     display: flex;
     padding: 0 4px;
     justify-content: space-between;
+    border-radius: 4px;
 }
 
 .total_bar_chart p {
     color: #dadfe7;
     font-size: 12px;
 }
+
+.bottom .team_box {
+    display: flex;
+    flex-direction: column;
+}
+
+.team_box > .header {
+    display: flex;
+    justify-content: space-around;
+}
+
+.team_box > .header p {
+    color: #dadfe7;
+} */
