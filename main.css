@@ -1055,4 +1055,65 @@ body {
 .games .bottom {
     display: flex;
     width: 700px;
+    background-color: rgb(31 35 49);
+}
+
+.bottom > .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0 
+}
+
+.header .team_score_box {
+    display: flex;
+}
+
+.team_score_box > div {
+    display: flex;
+    margin: 0 8px;
+}
+
+.blue_score p {
+    color: #219CE0;
+}
+
+.header .red_score {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.blue_score > div {
+    display: flex;
+}
+
+.red_score p {
+    color: #EB5757;
+}
+
+.bottom .total_bar_chart {
+    width: 270px;
+    display: flex;
+    flex-direction: column;
+}
+
+.total_bar_chart > .total_kill_box {
+    width: 100%; height: 16px;
+    margin: 0 8px 4px 0;
+}
+
+.total_bar_chart > .total_gold_box {
+    width: 100%; height: 16px;
+    margin: 0 8px 0 0;
+}
+
+.total_bar_chart .bar {
+    display: flex;
+    padding: 0 4px;
+    justify-content: space-between;
+}
+
+.total_bar_chart p {
+    color: #dadfe7;
+    font-size: 12px;
 }
