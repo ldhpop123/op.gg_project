@@ -1,4 +1,4 @@
-const riot_API = 'RGAPI-67808b18-3702-4cbc-b8ef-b903236c22b3';
+const riot_API = 'RGAPI-f1205add-558b-4d45-9cf7-b75423b9aabd';
 
 document.addEventListener('DOMContentLoaded', () => {
 
