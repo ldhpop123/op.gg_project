@@ -774,15 +774,12 @@ document.addEventListener('DOMContentLoaded', () => {
         search()
     });
 
-<<<<<<< HEAD
-    display_player_info()
-=======
+
     document.addEventListener('keydown', (e) => {
         if (document.querySelector('#game_name') && e.code == 'Enter') {
             search()
         }
     })
->>>>>>> d9bc4495743d5128dad76d7a793cb9adf9896b5a
 
     // game_mode_select_btn
     document.querySelector('.game_mode_select_box').addEventListener('click', (e) => {
@@ -806,4 +803,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#game_name').addEventListener('click', () => {
         document.querySelector('#game_name').value = ''
     })
+
+    display_player_info('Blue', 'kr33', '')
 });
