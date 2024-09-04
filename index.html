@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+    <script src="https://ldhpop123.github.io/path/to/main.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    <div class="container">
+        <section class="search_menu">
+            <div class="left">
+                <div class="search_bar">
+
+                    <div class="server_location_box">
+                        <div class="server_location_select">
+                            <div class="select_box">
+                                <p id="server_location">ASIA</p>
+                                <p class="material-icons" id="expand">expand_less</p>
+                            </div>
+                            <div class="server_location_btnbox hidden">
+                                <p class="server_location_btn">ASIA</p>
+                                <p class="server_location_btn">AMERICAS</p>
+                                <p class="server_location_btn">EUROPE</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+    
+                    <label for="" class="input_label"><input type="text" id="game_name"></label>
+    
+                    <div id="search_btn">
+                        <i class="material-icons" id>search</i>
+                    </div>
+                </div>
+            
+                <div class="player_info">
+                    <div class="player_icon_box">
+                        <img src="https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon5314.jpg" alt="" id="player_icon">
+                        <p id="player_level">1</p>
+                    </div>
+                    <div class="player_box">
+                        <div class="mini_player_rank">
+                            <img src="https://your.gg/images/emblem/Unranked.png" alt="" id="solo_rank_img" >
+                            <p id="solo_rank">Unranked I</p>
+                            <p id="solo_rank_lp">0LP</p>
+                        </div>
+                        
+                        <div class="name_tag_box">
+                            <p id="player_name">ldhpop123</p>
+                            <p id="player_tag">#KR1</p>
+                        </div>
+                        <div class="flag_iso">
+                            <img src="https://flagsapi.com/KR/flat/64.png" id="flag">
+                            <p id="player_location">KR</p>
+                        </div>
+                        <div id="reload_btn">
+                            <p>전적갱신</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="player_rank">
+                    <div class="rank_box">
+                        <div class="rank_icon_box">
+                            <img src="https://your.gg/images/emblem/Unranked.png" alt="" id="main_solo_rank_img">
+                        </div>
+
+                        <div class="rank_info">
+                            <p class="main_rank" id="main_rank_solo">Unranked</p>
+
+                            <div class="rank_mode_lp">
+                                <p class="rank_mode">Solo</p>
+                                <p class="main_lp" id="main_lp_solo">0LP</p>
+                            </div>
+                        </div>
+
+                        <div class="rank_winrate">
+                            <p class="main_wins_losses"><span id="main_wins_count_solo">0</span>승 <span id="main_losses_count_solo">0</span>패</p>
+                            <p class="main_winrate">승률 <span id="main_winrate_solo">0</span>%</p>
+                        </div>
+                    </div>
+
+                    <div class="dlvider"></div>
+                    
+                    <div class="rank_box">
+                        <div class="rank_icon_box">
+                            <img src="https://your.gg/images/emblem/Unranked.png" alt="" id="main_flex_rank_img">
+                        </div>
+
+                        <div class="rank_info">
+                            <p class="main_rank" id="main_rank_flex">Unranked</p>
+
+                            <div class="rank_mode_lp">
+                                <p class="rank_mode">Flex</p>
+                                <p class="main_lp" id="main_lp_flex">0LP</p>
+                            </div>
+                        </div>
+
+                        <div class="rank_winrate">
+                            <p class="main_wins_losses"><span id="main_wins_count_flex">0</span>승 <span id="main_losses_count_flex">0</span>패</p>
+                            <p class="main_winrate">승률 <span id="main_winrate_flex">0</span>%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="main">
+            <section class="main_header">
+                <div class="game_mode_select_box">
+                    <button class="game_mode_select selected" id="all_games">전체</button>
+                    <button class="game_mode_select" id="general_games">일반</button>
+                    <button class="game_mode_select" id="rank_games">랭크</button>
+                </div>
+            </section>
+            <div class="dlvider"></div>
+            <section class="main_body">
+                <section class="left" id="main_left">
+                    <!-- 숙련도 -->
+
+                    <!-- 라인 -->
+
+                    <!-- 친구 -->
+                </section>
+
+                <section class="right">
+                    <div id="main_rigth">
+                        <!-- 전적 -->
+                    </div>
+                    <div class="games" id="games">
+                        <!-- game_20 -->
+                        <!-- <div class="game">
+                            <div class="top">
+                                <div class="flex win_game" id="game_0">
+                                </div>
+                                <div class="advanced_info_btn win_info_btn">
+                                    <p class="material-icons" id="advanced_expand">expand_less</p>
+                                </div>
+                            </div>
+
+                            <div class="bottom">
+                                <div class="header">
+                                    <div class="blue_score team_score_box">
+                                        <div class="horde_box">
+                                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" preserveAspectRatio="xMidYMid meet"><metadata>Created by potrace 1.10, written by Peter Selinger 2001-2011
+                                            </metadata><g transform="translate(0,32) scale(0.100000,-0.100000)" fill="#219CE0" stroke="none"><path d="M125 260 c-21 -23 -14 -26 15 -8 16 10 24 10 40 0 29 -18 36 -15 15
+                                            8 -10 11 -26 20 -35 20 -9 0 -25 -9 -35 -20z"></path><path d="M72 234 c-19 -13 -21 -23 -20 -89 1 -41 5 -79 8 -85 9 -15 191 -15
+                                            200 0 4 6 7 42 8 81 1 58 -2 73 -19 90 -17 17 -23 19 -30 8 -13 -21 -11 -34
+                                            11 -59 l20 -23 -24 -31 c-18 -24 -32 -32 -64 -34 -36 -3 -43 1 -66 31 -31 41
+                                            -32 53 -6 60 20 5 26 32 12 54 -6 10 -13 9 -30 -3z m23 -133 c13 -16 15 -21 5
+                                            -16 -29 16 -40 27 -34 37 3 5 7 8 8 6 0 -2 10 -14 21 -27z m160 10 c-3 -6 -16
+                                            -16 -28 -23 -21 -11 -21 -10 -7 8 18 23 33 34 38 29 2 -2 1 -8 -3 -14z m-150
+                                            -41 c19 -8 19 -9 -2 -9 -12 -1 -25 4 -28 9 -7 12 2 12 30 0z m140 0 c-3 -5
+                                            -16 -10 -28 -9 -21 0 -21 1 -2 9 28 12 37 12 30 0z"></path><path d="M140 205 c-7 -8 -10 -21 -7 -30 4 -8 -1 -18 -10 -23 -13 -8 -13 -11
+                                            -2 -18 22 -14 68 -13 80 2 9 11 8 15 -4 20 -9 3 -13 12 -10 20 5 14 -13 44
+                                            -27 44 -4 0 -13 -7 -20 -15z"></path></g></svg>
+                                            <p>0</p>
+                                        </div>
+
+                                        <div class="baron_box">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 flex-shrink-0 flex-grow-0" preserveAspectRatio="xMidYMid meet"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.3335 1L11.5402 5.33333L11.5002 5.38C10.9735 5.98667 10.2068 6.33333 9.40016 6.33333H9.00016L8.00016 5L7.00016 6.33333H6.6335C5.80683 6.33333 5.02683 5.96667 4.4935 5.33333L7.00016 1L1.3335 4.33333C1.3335 5.19333 1.64016 6.02667 2.20016 6.68L3.1335 8C3.1335 9.52667 3.7335 11.0333 4.4935 12.36L6.00016 15V13.6667H10.0002V15L11.5068 12.36C12.2668 11.0333 12.8668 9.52667 12.8668 8L13.7935 6.68C14.3535 6.02667 14.6602 5.19333 14.6602 4.33333L9.3335 1ZM6.3335 10.6667C5.96683 10.6667 5.66683 10.3667 5.66683 10C5.66683 9.63333 5.96683 9.33333 6.3335 9.33333C6.70016 9.33333 7.00016 9.63333 7.00016 10C7.00016 10.3667 6.70016 10.6667 6.3335 10.6667ZM8.00016 12.3333C7.6335 12.3333 7.3335 12.0333 7.3335 11.6667C7.3335 11.3 7.6335 11 8.00016 11C8.36683 11 8.66683 11.3 8.66683 11.6667C8.66683 12.0333 8.36683 12.3333 8.00016 12.3333ZM8.00016 8.75333C7.6335 8.75333 7.3335 8.45333 7.3335 8.08667C7.3335 7.72 7.6335 7.42 8.00016 7.42C8.36683 7.42 8.66683 7.72 8.66683 8.08667C8.66683 8.45333 8.36683 8.75333 8.00016 8.75333ZM9.66683 10.6667C9.30016 10.6667 9.00016 10.3667 9.00016 10C9.00016 9.63333 9.30016 9.33333 9.66683 9.33333C10.0335 9.33333 10.3335 9.63333 10.3335 10C10.3335 10.3667 10.0335 10.6667 9.66683 10.6667Z" fill="#219CE0"></path></svg>
+                                            <p>0</p>
+                                        </div>
+
+                                        <div class="riftHerald_box">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 flex-shrink-0 flex-grow-0" preserveAspectRatio="xMidYMid meet"><path d="M8.00016 10.0333C8.36835 10.0333 8.66683 9.43635 8.66683 8.69997C8.66683 7.96359 8.36835 7.36664 8.00016 7.36664C7.63197 7.36664 7.3335 7.96359 7.3335 8.69997C7.3335 9.43635 7.63197 10.0333 8.00016 10.0333Z" fill="#219CE0"></path><path d="M3.33341 14.0333C3.56008 13.76 3.22007 13.0333 3.02007 12.3267C2.79341 11.5133 2.66674 10.7133 2.44008 10.62C1.78674 10.36 1.10007 11.08 1.02007 11.64C0.913408 12.3667 2.99341 14.44 3.33341 14.0333Z" fill="#219CE0"></path><path d="M14 7.36666C14 4.7 11 1.91333 11 1.91333V5.62C10.2667 4.64666 9.19333 4.28 8 4.28C6.80667 4.28 5.73333 4.64666 5 5.62V1.91333C5 1.91333 2 4.7 2 7.36666C2 8.10666 2.06 8.48 2.18 8.7H3.48C3.99333 11.38 6.36667 12.6867 7.99333 12.6867C9.62 12.6867 11.9933 11.3867 12.5067 8.7H13.8067C13.9267 8.48 13.9867 8.10666 13.9867 7.36666H14ZM8 6.03333C9.47333 6.03333 10.6667 7.22666 10.6667 8.7C10.6667 10.1733 8.88 11.3667 8 11.3667C7.12 11.3667 5.33333 10.1733 5.33333 8.7C5.33333 7.22666 6.52667 6.03333 8 6.03333Z" fill="#219CE0"></path><path d="M12.6669 14.0333C12.4402 13.76 12.7802 13.0333 12.9802 12.3267C13.2069 11.5133 13.3336 10.7133 13.5602 10.62C14.2136 10.36 14.9002 11.08 14.9802 11.64C15.0869 12.3667 13.0069 14.44 12.6669 14.0333Z" fill="#219CE0"></path></svg>
+                                            <p>0</p>
+                                        </div>
+
+                                        <div class="dragon_box">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 flex-shrink-0 flex-grow-0" preserveAspectRatio="xMidYMid meet"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.9998 5.66665L12.6665 1.99998L9.33317 4.99998L7.99984 0.333313L6.6665 4.99998L3.55317 1.99998L3.99984 5.66665H0.666504L3.99984 8.33331V9.48665C3.99984 10.4733 4.3065 11.4333 4.87984 12.2333L6.9465 15.1266C7.1865 15.4666 7.57984 15.6666 7.99984 15.6666C8.41984 15.6666 8.81317 15.4666 9.05317 15.1266L11.1198 12.2333C11.6932 11.4333 11.9998 10.4733 11.9998 9.48665V8.33331L15.3332 5.66665H11.9998ZM7.33317 11.6666L6.33984 11.28C5.89317 11.1066 5.5665 10.72 5.47317 10.2533L4.99984 7.99998L6.21317 9.21331C6.51317 9.51331 6.73984 9.87998 6.87317 10.28L7.33317 11.6666V11.6666ZM9.65984 11.28L8.6665 11.6666L9.1265 10.28C9.25984 9.87998 9.4865 9.51331 9.7865 9.21331L10.9998 7.99998L10.5265 10.2533C10.4265 10.72 10.0998 11.1066 9.65984 11.28V11.28Z" fill="#219CE0"></path></svg>
+                                            <p>0</p>
+                                        </div>
+
+                                        <div class="tower_box">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 flex-shrink-0 flex-grow-0" preserveAspectRatio="xMidYMid meet"><path d="M7.92046 11L6.98046 10.0533L4.63379 7.70667L5.93356 15.0067H9.91356L11.2138 7.70667L8.86712 10.0533L7.92046 11Z" fill="#219CE0"></path><path d="M7.92016 9.84669L12.5068 5.26002H10.3335L11.4202 4.17335L7.92016 0.666687L4.42016 4.17335L5.50683 5.26002H3.3335L7.92016 9.84669ZM7.92016 2.28002L9.62683 3.98669L7.92016 5.69335L6.2135 3.98669L7.92016 2.28002V2.28002Z" fill="#219CE0"></path></svg>
+                                            <p>0</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="total_bar_chart">
+                                        <div class="total_kill_box">
+                                            <div class="total_kill_bar bar" style="background: linear-gradient(to right, #219CE0 0% 60%, #EB5757 60% 100%);">
+                                                <p>36</p>
+                                                <p>Total Kill</p>
+                                                <p>22</p>
+                                            </div>
+                                        </div>
+                                        <div class="total_gold_box">
+                                            <div class="total_gold_bar bar" style="background: linear-gradient(to right, #219CE0 0% 60%, #EB5757 60% 100%);">
+                                                <p>36</p>
+                                                <p>Total Gold</p>
+                                                <p>22</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="red_score team_score_box">
+                                        <div class="horde_box">
+                                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" preserveAspectRatio="xMidYMid meet"><metadata>Created by potrace 1.10, written by Peter Selinger 2001-2011
+                                            </metadata><g transform="translate(0,32) scale(0.100000,-0.100000)" fill="#EB5757" stroke="none"><path d="M125 260 c-21 -23 -14 -26 15 -8 16 10 24 10 40 0 29 -18 36 -15 15
+                                            8 -10 11 -26 20 -35 20 -9 0 -25 -9 -35 -20z"></path><path d="M72 234 c-19 -13 -21 -23 -20 -89 1 -41 5 -79 8 -85 9 -15 191 -15
+                                            200 0 4 6 7 42 8 81 1 58 -2 73 -19 90 -17 17 -23 19 -30 8 -13 -21 -11 -34
+                                            11 -59 l20 -23 -24 -31 c-18 -24 -32 -32 -64 -34 -36 -3 -43 1 -66 31 -31 41
+                                            -32 53 -6 60 20 5 26 32 12 54 -6 10 -13 9 -30 -3z m23 -133 c13 -16 15 -21 5
+                                            -16 -29 16 -40 27 -34 37 3 5 7 8 8 6 0 -2 10 -14 21 -27z m160 10 c-3 -6 -16
+                                            -16 -28 -23 -21 -11 -21 -10 -7 8 18 23 33 34 38 29 2 -2 1 -8 -3 -14z m-150
+                                            -41 c19 -8 19 -9 -2 -9 -12 -1 -25 4 -28 9 -7 12 2 12 30 0z m140 0 c-3 -5
+                                            -16 -10 -28 -9 -21 0 -21 1 -2 9 28 12 37 12 30 0z"></path><path d="M140 205 c-7 -8 -10 -21 -7 -30 4 -8 -1 -18 -10 -23 -13 -8 -13 -11
+                                            -2 -18 22 -14 68 -13 80 2 9 11 8 15 -4 20 -9 3 -13 12 -10 20 5 14 -13 44
+                                            -27 44 -4 0 -13 -7 -20 -15z"></path></g></svg>
+                                            <p>0</p>
+                                        </div>
+
+                                        <div class="baron_box">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 flex-shrink-0 flex-grow-0" preserveAspectRatio="xMidYMid meet"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.3335 1L11.5402 5.33333L11.5002 5.38C10.9735 5.98667 10.2068 6.33333 9.40016 6.33333H9.00016L8.00016 5L7.00016 6.33333H6.6335C5.80683 6.33333 5.02683 5.96667 4.4935 5.33333L7.00016 1L1.3335 4.33333C1.3335 5.19333 1.64016 6.02667 2.20016 6.68L3.1335 8C3.1335 9.52667 3.7335 11.0333 4.4935 12.36L6.00016 15V13.6667H10.0002V15L11.5068 12.36C12.2668 11.0333 12.8668 9.52667 12.8668 8L13.7935 6.68C14.3535 6.02667 14.6602 5.19333 14.6602 4.33333L9.3335 1ZM6.3335 10.6667C5.96683 10.6667 5.66683 10.3667 5.66683 10C5.66683 9.63333 5.96683 9.33333 6.3335 9.33333C6.70016 9.33333 7.00016 9.63333 7.00016 10C7.00016 10.3667 6.70016 10.6667 6.3335 10.6667ZM8.00016 12.3333C7.6335 12.3333 7.3335 12.0333 7.3335 11.6667C7.3335 11.3 7.6335 11 8.00016 11C8.36683 11 8.66683 11.3 8.66683 11.6667C8.66683 12.0333 8.36683 12.3333 8.00016 12.3333ZM8.00016 8.75333C7.6335 8.75333 7.3335 8.45333 7.3335 8.08667C7.3335 7.72 7.6335 7.42 8.00016 7.42C8.36683 7.42 8.66683 7.72 8.66683 8.08667C8.66683 8.45333 8.36683 8.75333 8.00016 8.75333ZM9.66683 10.6667C9.30016 10.6667 9.00016 10.3667 9.00016 10C9.00016 9.63333 9.30016 9.33333 9.66683 9.33333C10.0335 9.33333 10.3335 9.63333 10.3335 10C10.3335 10.3667 10.0335 10.6667 9.66683 10.6667Z" fill="#EB5757"></path></svg>
+                                            <p>0</p>
+                                        </div>
+
+                                        <div class="riftHerald_box">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 flex-shrink-0 flex-grow-0" preserveAspectRatio="xMidYMid meet"><path d="M8.00016 10.0333C8.36835 10.0333 8.66683 9.43635 8.66683 8.69997C8.66683 7.96359 8.36835 7.36664 8.00016 7.36664C7.63197 7.36664 7.3335 7.96359 7.3335 8.69997C7.3335 9.43635 7.63197 10.0333 8.00016 10.0333Z" fill="#EB5757"></path><path d="M3.33341 14.0333C3.56008 13.76 3.22007 13.0333 3.02007 12.3267C2.79341 11.5133 2.66674 10.7133 2.44008 10.62C1.78674 10.36 1.10007 11.08 1.02007 11.64C0.913408 12.3667 2.99341 14.44 3.33341 14.0333Z" fill="#EB5757"></path><path d="M14 7.36666C14 4.7 11 1.91333 11 1.91333V5.62C10.2667 4.64666 9.19333 4.28 8 4.28C6.80667 4.28 5.73333 4.64666 5 5.62V1.91333C5 1.91333 2 4.7 2 7.36666C2 8.10666 2.06 8.48 2.18 8.7H3.48C3.99333 11.38 6.36667 12.6867 7.99333 12.6867C9.62 12.6867 11.9933 11.3867 12.5067 8.7H13.8067C13.9267 8.48 13.9867 8.10666 13.9867 7.36666H14ZM8 6.03333C9.47333 6.03333 10.6667 7.22666 10.6667 8.7C10.6667 10.1733 8.88 11.3667 8 11.3667C7.12 11.3667 5.33333 10.1733 5.33333 8.7C5.33333 7.22666 6.52667 6.03333 8 6.03333Z" fill="#EB5757"></path><path d="M12.6669 14.0333C12.4402 13.76 12.7802 13.0333 12.9802 12.3267C13.2069 11.5133 13.3336 10.7133 13.5602 10.62C14.2136 10.36 14.9002 11.08 14.9802 11.64C15.0869 12.3667 13.0069 14.44 12.6669 14.0333Z" fill="#EB5757"></path></svg>
+                                            <p>0</p>
+                                        </div>
+
+                                        <div class="dragon_box">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 flex-shrink-0 flex-grow-0" preserveAspectRatio="xMidYMid meet"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.9998 5.66665L12.6665 1.99998L9.33317 4.99998L7.99984 0.333313L6.6665 4.99998L3.55317 1.99998L3.99984 5.66665H0.666504L3.99984 8.33331V9.48665C3.99984 10.4733 4.3065 11.4333 4.87984 12.2333L6.9465 15.1266C7.1865 15.4666 7.57984 15.6666 7.99984 15.6666C8.41984 15.6666 8.81317 15.4666 9.05317 15.1266L11.1198 12.2333C11.6932 11.4333 11.9998 10.4733 11.9998 9.48665V8.33331L15.3332 5.66665H11.9998ZM7.33317 11.6666L6.33984 11.28C5.89317 11.1066 5.5665 10.72 5.47317 10.2533L4.99984 7.99998L6.21317 9.21331C6.51317 9.51331 6.73984 9.87998 6.87317 10.28L7.33317 11.6666V11.6666ZM9.65984 11.28L8.6665 11.6666L9.1265 10.28C9.25984 9.87998 9.4865 9.51331 9.7865 9.21331L10.9998 7.99998L10.5265 10.2533C10.4265 10.72 10.0998 11.1066 9.65984 11.28V11.28Z" fill="#EB5757"></path></svg>
+                                            <p>0</p>
+                                        </div>
+
+                                        <div class="tower_box">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 flex-shrink-0 flex-grow-0" preserveAspectRatio="xMidYMid meet"><path d="M7.92046 11L6.98046 10.0533L4.63379 7.70667L5.93356 15.0067H9.91356L11.2138 7.70667L8.86712 10.0533L7.92046 11Z" fill="#EB5757"></path><path d="M7.92016 9.84669L12.5068 5.26002H10.3335L11.4202 4.17335L7.92016 0.666687L4.42016 4.17335L5.50683 5.26002H3.3335L7.92016 9.84669ZM7.92016 2.28002L9.62683 3.98669L7.92016 5.69335L6.2135 3.98669L7.92016 2.28002V2.28002Z" fill="#EB5757"></path></svg>
+                                            <p>0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bottom">
+                                    <div class="blue_team_box team_box">
+                                        <div class="header">
+                                            <p>패배</p>
+                                            <p>블루 팀</p>
+                                            <p>딜량</p>
+                                            <p>KDA</p>
+                                            <p>피해량</p>
+                                            <p>와드</p>
+                                            <p>아이템</p>
+                                        </div>
+                                        <div class='main'></div>
+                                    </div>
+
+                                    <div class="red_team_box team_box"></div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+                </section>
+            </section>
+        </section>
+    </div>
+</body>
+</html>
