@@ -1,4 +1,4 @@
-const riot_API = 'RGAPI-f1205add-558b-4d45-9cf7-b75423b9aabd';
+const riot_API = 'RGAPI-26dbb496-2875-4ec2-855e-8b481477e366';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -325,6 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('입력해주세요');
         }
     });
+
+    display_player_info()
 
     // game_mode_select_btn
     document.querySelector('.game_mode_select_box').addEventListener('click', (e) => {
