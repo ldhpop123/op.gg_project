@@ -773,6 +773,7 @@ document.addEventListener('DOMContentLoaded', () => {
         search()
     });
 
+
     document.addEventListener('keydown', (e) => {
         if (document.querySelector('#game_name') && e.code == 'Enter') {
             search()
@@ -801,4 +802,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#game_name').addEventListener('click', () => {
         document.querySelector('#game_name').value = ''
     })
+
+    display_player_info('Blue', 'kr33', '')
 });
