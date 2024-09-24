@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 
 const riot_API = 'RGAPI-70bd1b64-0888-4664-8b7b-9103dc692105';
 
+=======
+const riot_API = 'RGAPI-4fde50c6-8051-4ef7-9ee2-274959c96b3c';
+>>>>>>> 34bc2063fe6b61aac2fa351fa681e252405be5ce
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -12,12 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --functions--
     function search() {
+        document.querySelector('#games').innerHTML = ''
+        document.querySelector('#main_left').innerHTML = ''
+        document.querySelector('#main_rigth').innerHTML = ''
+        
         if (document.querySelector('#game_name').value == '') {
             alert('입력해주세요')
         } else {
-            document.querySelector('#games').innerHTML = ''
-            document.querySelector('#main_left').innerHTML = ''
-            document.querySelector('#main_rigth').innerHTML = ''
 
             if (document.querySelector('.selected').textContent == '전체') {
                 search_type = ``
